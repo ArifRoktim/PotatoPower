@@ -1,0 +1,26 @@
+potatoPower
+The Plan
+Arif Roktim
+Shakil Rafi
+Alitquan Mallick
+
+====================================================
+Data Structures for Implementation
+====================================================
+Two queues: one for enemy spawning, another for 
+targeting enemies
+Stack: one for manually overriding
+Quad Tree class: generically typed or two seperate 
+ classes(one for collisions and the other for 
+ enemies)
+
+====================================================
+Plan
+====================================================
+UML Diagram
+Flow Chart
+Distribution of Labor
+
+====================================================
+Distribution of Labor
+====================================================
