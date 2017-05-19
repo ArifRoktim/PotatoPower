@@ -1,26 +1,36 @@
-potatoPower
-The Plan
+PotatoPower
 Arif Roktim
 Shakil Rafi
 Alitquan Mallick
 
+ _________  ___   ___   ______       ______   __       ________   ___   __      
+/________/\/__/\ /__/\ /_____/\     /_____/\ /_/\     /_______/\ /__/\ /__/\    
+\__.::.__\/\::\ \\  \ \\::::_\/_    \:::_ \ \\:\ \    \::: _  \ \\::\_\\  \ \   
+   \::\ \   \::\/_\ .\ \\:\/___/\    \:(_) \ \\:\ \    \::(_)  \ \\:. `-\  \ \  
+    \::\ \   \:: ___::\ \\::___\/_    \: ___\/ \:\ \____\:: __  \ \\:. _    \ \ 
+     \::\ \   \: \ \\::\ \\:\____/\    \ \ \    \:\/___/\\:.\ \  \ \\. \`-\  \ \
+      \__\/    \__\/ \::\/ \_____\/     \_\/     \_____\/ \__\/\__\/ \__\/ \__\/
+================================================================================
+
+
 ====================================================
 Data Structures for Implementation
 ====================================================
-Two queues: one for enemy spawning, another for 
-targeting enemies
-Stack: one for manually overriding
-Quad Tree class: generically typed or two seperate 
- classes(one for collisions and the other for 
- enemies)
+Quad Tree class for efficient collision detection
+Tile class (and Board class) for game board
 
 ====================================================
-Plan
+Plan / Prioritization
 ====================================================
-UML Diagram
-Flow Chart
-Distribution of Labor
+The most crucial job we have is designing our game.
+1. Make UML Diagram
+  We still need to do a lot of planning as to how we're implementing the classes
+  and what the classes will do. A UML diagram will help us greatly.
+  We will work on the UML diagram together in class on Friday.
+2. Make Flow Chart
+  A flow chart will also help us in planning. We will also do this together.
 
 ====================================================
 Distribution of Labor
 ====================================================
+TBD
