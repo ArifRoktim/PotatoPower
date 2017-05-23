@@ -14,19 +14,19 @@ class Enemy implements Collideable {
     return false;
   }
   
-  void drawObj(){
+  public void drawObj(){
     
   }
   
-  void move(){
+  public void move(){
     
   }
   
-  void collide(){
+  public void collide(){
     
   }
   
-  void collide(Collideable other) {
+  public void collide(Collideable other) {
     
   }
   

@@ -15,7 +15,8 @@ class Tower implements Drawable {
     _angle = 0;
   }
   
-  void drawObj() {
+  public void drawObj() {
+    
   }
   
   // checks queue to see if enemy at head is dead or out of range

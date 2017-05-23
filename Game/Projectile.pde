@@ -10,20 +10,20 @@ class Projectile implements Collideable{
     _dy = dy;
   }
   
-  void drawObj(){
+  public void drawObj(){
     
   }
   
-  void move(){
+  public void move(){
     _xPos += _dx;
     _yPos += _dy;
   }
   
-  void collide(){
+  public void collide(){
     
   }
   
-  void collide(Collideable other) {
+  public void collide(Collideable other) {
     
   }
 }

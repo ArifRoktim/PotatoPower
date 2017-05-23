@@ -3,11 +3,10 @@
 */
 interface Collideable extends Drawable {
   // when a projectile collides with another
-  void collide( Collideable other);
+  public void collide( Collideable other);
 
-  void collide(); //needed?
+  public void collide(); //needed?
 
   // movement for the projectiles
-  void move();
+  public void move();
 }
-

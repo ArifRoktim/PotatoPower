@@ -10,6 +10,7 @@ class Tile implements Drawable{
   int _xPos, _yPos; // x and y coordinates
   color _color;
   Drawable _tower;
+  final int dim = 40;
   
   public Tile( int x, int y ) {
     // generic terrain
@@ -30,9 +31,8 @@ class Tile implements Drawable{
     _yPos = y;
   }
 
-  void drawObj(){
-    
-    
+  public void drawObj(){
+    _tower.drawObj();
   }
 
 
