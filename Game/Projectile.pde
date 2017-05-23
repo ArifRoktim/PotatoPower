@@ -1,7 +1,7 @@
 class Projectile implements Collideable{
   int damage;
-  int _dx; // change in x
-  int _dy; // change in y
+  int _xPos, _yPos; // x and y coordinates
+  int _dx, _dy; // change in x and y
   
   // default constructor
   Projectile() {

@@ -2,9 +2,10 @@ import java.util.Queue;
 class Tower implements Drawable {
   
   int _range;// maximum range to detect and shoot at an enemy
+  int _xPos, _yPos; // x and y coordinates
   int _reloadTime = 1;// seconds between successive shoys
   Queue<Enemy> _enemies; // enemies that towers will target 
-  int angle; // angle that projectile will be launched
+  int _angle; // angle that projectile will be launched
   
   // constructor
   public Tower() {

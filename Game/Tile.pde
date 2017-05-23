@@ -2,6 +2,7 @@
 class Tile implements Drawable{
   
   int _type; 
+  int _xPos, _yPos; // x and y coordinates
   color _color;
   Drawable _tower;
   
