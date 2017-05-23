@@ -46,7 +46,7 @@ LESSONS LEARNED
 
 2017-05-22
 --------------------------------------------------------------
-Shakil and Alitquan: Design flowchart
+All: Design flowchart
 Arif :: Write some constructors
 ==============================================================
 
