@@ -4,6 +4,8 @@ class Enemy implements Collideable {
   
   Enemy() {
     _hp = 100; 
+    // the initial _xPos and _yPos are dependant on the Map
+    // Gotta make the Map class first
   }
 
   boolean isAlive() {
