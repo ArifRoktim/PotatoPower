@@ -1,13 +1,14 @@
+import java.util.Queue;
 class Tower implements Drawable {
   
   int _range;// maximum range to detect and shoot at an enemy
   int _reloadTime = 1;// seconds between successive shoys
-  Queue _enemies; // enemies that towers will target 
+  Queue<Enemy> _enemies; // enemies that towers will target 
   int angle; // angle that projectile will be launched
   
   // constructor
   public Tower() {
-    _enemies = new Queue<Enemy>();
+    _enemies = new LinkedList<Enemy>();
   }
   
   void drawObj() {
@@ -15,9 +16,9 @@ class Tower implements Drawable {
   
   // checks queue to see if enemy at head is dead or out of range
   void cheque() {
-    Enemy primary = (Enemy) _enemies.peekFront();
-    if (! primary.isAlive()) 
-      _enemies.dequeue();     
+    Enemy front = _enemies.peek();
+    if (! front.isAlive()) 
+      _enemies.remove();     
   }
   
   // detects and adds nearby enemies within range to queue
