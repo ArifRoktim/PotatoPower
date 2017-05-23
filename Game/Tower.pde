@@ -1,4 +1,3 @@
-import java.util.Queue;
 class Tower implements Drawable {
   
   int _range;// maximum range to detect and shoot at an enemy
