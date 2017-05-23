@@ -1,0 +1,28 @@
+Instance variables:
+LinkedList _drawables // List of all drawable objects. Also happens to be a list of all game objects
+QuadTree _qTree
+
+setup():
+playGame = true;
+Create the map
+Spawn in a bunch of towers on the map (make sure to add them to _drawables)
+
+draw():
+If player has clicked start:
+  First update the screen by calling: update()
+
+  // COLLISION DETECTION STUFF
+  Clear the quadtree: _qTree.clear()
+  Add all Collideables to the QuadTree: _qTree.insertCollideables( _drawables )
+  Do all the collision checking: doCollisions( _drawables )
+  // END COLLISION DETECTION STUFF
+
+  Call tower.cheque() and tower.detect() to add/remove enemies from queue
+
+  For every Enemy in _drawables, call enemy.move()
+  For every Projectile in _drawables, call projectile.move()
+  For every tower in _drawables, call tower.shoot()
+  
+  If spawn queue is empty and every Enemy is dead, you win
+  If 3 enemies reach end, you lose
+  
