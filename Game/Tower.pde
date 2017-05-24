@@ -5,14 +5,16 @@ class Tower implements Drawable {
   int _reloadTime;// seconds between successive shoys
   Queue<Enemy> _enemies; // enemies that towers will target 
   int _angle; // angle that projectile will be launched
+  ImageStorage img;
   
-  public Tower( int x, int y ) {
+  public Tower( int x, int y, ImageStorage nimg ) {
     _range = 5;
     _xPos = x;
     _yPos = y;
     _reloadTime = 1;
     _enemies = new LinkedList<Enemy>();
     _angle = 0;
+    img = nimg;
   }
   
   public void drawObj() {
@@ -35,6 +37,10 @@ class Tower implements Drawable {
   
   // damages enemy at the head of the queue 
   void shoot() {
+  }
+  
+  public ImageStorage getImg() {
+    return img;
   }
 
 }
