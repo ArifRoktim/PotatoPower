@@ -44,6 +44,12 @@ LESSONS LEARNED
 <Member> :: <Thing member did.>
 ==============================================================
 
+2017-05-23
+--------------------------------------------------------------
+Shakil :: Worked on drawable interface and drawing tiles to window
+Arif :: Worked on flowchart
+==============================================================
+
 2017-05-22
 --------------------------------------------------------------
 All: Design flowchart
@@ -59,11 +65,5 @@ Alitquan :: Add skeleton files for most classes
 --------------------------------------------------------------
 All :: Design UML Diagram
 Arif :: Transcribe UML Diagram.
-==============================================================
-
-2017-05-23
---------------------------------------------------------------
-Shakil :: Worked on drawable interface and drawing tiles to window
-Arif :: Worked on flowchart
 ==============================================================
 
