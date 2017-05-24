@@ -1,13 +1,15 @@
-class Projectile implements Collideable{
+class Projectile implements Collideable {
   int damage;
   int _xPos, _yPos; // x and y coordinates
   int _dx, _dy; // change in x and y
+  ImageStorage img;
   
-  Projectile( int x, int y, int dx, int dy ) {
+  Projectile( int x, int y, int dx, int dy, ImageStorage nimg) {
     _xPos = x;
     _yPos = y;
     _dx = dx;
     _dy = dy;
+    img = nimg;
   }
   
   public void drawObj(){
@@ -25,5 +27,9 @@ class Projectile implements Collideable{
   
   public void collide(Collideable other) {
     
+  }
+  
+  public ImageStorage getImg() {
+    return img;
   }
 }

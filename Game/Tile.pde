@@ -1,41 +1,43 @@
 // functions similar to patches in netlogo
-class Tile implements Drawable{
+class Tile implements Drawable {
   
   /* int _type: The type of tile
     0: Path tile for enemies to walk on
     1: Grass tile for tower placement
     ... etc ...
   */
-  int _type; // Replace with enum later
+  TileType _type;
   int _xPos, _yPos; // x and y coordinates
-  color _color;
   Drawable _tower;
   final int dim = 40;
+  ImageStorage img;
   
-  public Tile( int x, int y ) {
+  public Tile( int x, int y, ImageStorage nimg) {
     // generic terrain
-    _type = 1;
-    int r, g, b;
-    if( _type == 0 ){ // set color to white for path tiles
-      r = g = b = 256;
-    } else if( _type == 1 ){ // set color to green for grass tiles
-      r = 0;
-      g = 153;
-      b = 0;
-    } else { // set color to black for tile of unknown type
-      r = g = b = 0;
-    }
-    _color = color (r,g,b);
+    _type = TileType.GRASS;
     _tower = null;
     _xPos = x;
     _yPos = y;
+    img = nimg;
   }
 
   public void drawObj(){
-    _tower.drawObj();
+    switch(_type) {
+      case GRASS:
+        image(img.grass(), _xPos, _yPos);
+        break;
+      case PATH:
+        image(img.path(),  _xPos, _yPos);
+        break;
+    }
   }
-
-
-
+  
+  public ImageStorage getImg() {
+    return img;
+  }
+  
+  public void setType(TileType t) {
+    _type = t;
+  }
 
 }

@@ -1,0 +1,4 @@
+enum TileType {
+  GRASS,
+  PATH;
+}

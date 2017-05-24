@@ -1,9 +1,11 @@
 class Enemy implements Collideable {
   int _hp;
   int _xPos, yPos; // x and y coordinates
+  ImageStorage img;
   
-  Enemy() {
+  Enemy(ImageStorage nimg) {
     _hp = 100; 
+    img = nimg;
     // the initial _xPos and _yPos are dependant on the Map
     // Gotta make the Map class first
   }
@@ -28,6 +30,10 @@ class Enemy implements Collideable {
   
   public void collide(Collideable other) {
     
+  }
+  
+  public ImageStorage getImg() {
+    return img;
   }
   
 }
