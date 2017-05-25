@@ -4,8 +4,9 @@ class Tower implements Drawable {
   int _xPos, _yPos; // x and y coordinates
   int _reloadTime;// seconds between successive shoys
   Queue<Enemy> _enemies; // enemies that towers will target 
-  int _angle; // angle that projectile will be launched
+  float _angle; // angle that projectile will be launched
   ImageStorage img;
+  final int dim = 40;
   
   public Tower( int x, int y, ImageStorage nimg ) {
     _range = 5;
@@ -18,7 +19,12 @@ class Tower implements Drawable {
   }
   
   public void drawObj() {
-    
+    image(img.tower(), _xPos, _yPos, dim, dim);
+    pushMatrix();
+    translate(_xPos + dim/2, _yPos + dim/2);
+    rotate(_angle);
+    image(img.turret(), -dim/2, -dim/2, dim, dim);
+    popMatrix();
   }
   
   // checks queue to see if enemy at head is dead or out of range

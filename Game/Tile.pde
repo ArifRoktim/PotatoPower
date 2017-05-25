@@ -25,6 +25,8 @@ class Tile implements Drawable {
     switch(_type) {
       case GRASS:
         image(img.grass(), _xPos, _yPos);
+        if (_tower != null)
+          _tower.drawObj();
         break;
       case PATH:
         image(img.path(),  _xPos, _yPos);
