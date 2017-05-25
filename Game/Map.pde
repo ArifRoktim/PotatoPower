@@ -18,7 +18,7 @@ public class Map implements Drawable {
     _map = new Tile [_width/length][_height/length];
     for (int x= 0; x< _map.length; x++)
       for (int y = 0; y < _map.length; y++)
-        _map[y][x] = new Tile(y*length, x*length, img);
+        _map[y][x] = new Tile(y*40, x*40, img);
   }
 
   // Maps: 
