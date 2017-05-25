@@ -1,9 +1,5 @@
 // Main reference and credit: https://gamedevelopment.tutsplus.com/tutorials/quick-tip-use-quadtrees-to-detect-likely-collisions-in-2d-space--gamedev-374
 
-import java.awt.Rectangle;
-import java.util.List;
-import java.util.ArrayList;
-
 public class QuadTree{
 
   int _maxObjects;

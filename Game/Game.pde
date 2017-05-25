@@ -1,6 +1,9 @@
 // the "driver" file
 import java.util.LinkedList;
 import java.util.Queue;
+import java.awt.Rectangle;
+import java.util.List;
+import java.util.ArrayList;
 
 Tile[][] _map;
 ImageStorage img;
@@ -55,3 +58,4 @@ void placeTower(int x, int y){
   ImageStorage img = new ImageStorage();
   image(img.tower(),x*40,y*40,40,40);
 }
+
