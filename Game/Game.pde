@@ -7,9 +7,11 @@ import java.util.ArrayList;
 
 Tile[][] _map;
 ImageStorage img;
+List<Drawable> _drawables;
 
 void setup() {
   size(600, 600); //15x15 tiles
+  _drawables = new LinkedList();
   img = new ImageStorage();
   _map = new Tile[15][15];
   for (int i = 0; i < _map.length; i++)
@@ -22,6 +24,12 @@ void draw() {
   for (Tile[] row : _map)
     for (Tile t : row)
       t.drawObj();
+}
+
+void render(){
+  for( Drawable i: _drawables ){
+    i.drawObj();
+  }
 }
 
 // harcoded default map; precursor to the implementation of a map class
