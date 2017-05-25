@@ -9,4 +9,10 @@ interface Collideable extends Drawable {
 
   // movement for the projectiles
   public void move();
+
+  public int getX();
+  public int getY();
+
+  public int getWidth();
+  public int getHeight();
 }
