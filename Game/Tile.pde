@@ -12,7 +12,7 @@ class Tile implements Drawable {
   final int dim = 40;
   ImageStorage img;
   
-  public Tile( int x, int y, ImageStorage nimg) {
+  Tile( int x, int y, ImageStorage nimg) {
     // generic terrain
     _type = TileType.GRASS;
     _tower = null;
@@ -21,10 +21,12 @@ class Tile implements Drawable {
     img = nimg;
   }
 
-  public void drawObj(){
+  void drawObj(){
     switch(_type) {
       case GRASS:
         image(img.grass(), _xPos, _yPos);
+        if (_tower != null)
+          _tower.drawObj();
         break;
       case PATH:
         image(img.path(),  _xPos, _yPos);
