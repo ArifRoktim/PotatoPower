@@ -8,9 +8,11 @@ import java.util.ArrayList;
 Map _map;
 ImageStorage img;
 List<Drawable> _drawables;
+QuadTree _qTree;
 
 void setup() {
   size(600, 600); //15x15 tiles
+  _qTree = new QuadTree( 0, new Rectangle( 0, 0, width, height) );
   img = new ImageStorage();
   _map = new Map(img);
   _map.mapOne();
@@ -20,6 +22,7 @@ void setup() {
 
 void draw() {
   render();
+  doCollisions();
   //spawn(); // need to implement Enemy.drawObj() first
 }
 
@@ -37,5 +40,25 @@ void spawn(){
   if (frameCount % (5 * 60) == 0){
     _drawables.add( new Enemy( _map, img ) );
   }
+}
+
+void doCollisions(){
+  // Clear and repopulate QuadTree
+  _qTree.clear();
+  _qTree.insertCollideables( _drawables );
+  List<Collideable> collideables = new LinkedList<Collideable>();
+  for( Drawable i: _drawables ){
+    // Do collisions from the perspective of the enemy
+    if( i instanceof Enemy ){
+      collideables.clear();
+      _qTree.retrieve( collideables, (Collideable) i );
+
+      for( Collideable j: collideables ){
+        // run actual collision detection algorithm
+      }
+
+    }
+  }
+
 }
 

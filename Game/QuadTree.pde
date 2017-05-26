@@ -127,4 +127,14 @@ public class QuadTree{
     return returnObjects;
   }
 
+
+  // Inserts every Collideable in objects to the QuadTree
+  void insertCollideables( List objects ){
+    for( Object i: objects ){
+      if( i instanceof Collideable ){
+        insert( (Collideable) i );
+      }
+    }
+  }
+
 }
