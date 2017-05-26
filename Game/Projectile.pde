@@ -1,7 +1,7 @@
 class Projectile implements Collideable {
   int damage;
   int _xPos, _yPos; // x and y coordinates
-  int _width, _height;
+  int _rad;
   int _dx, _dy; // change in x and y
   ImageStorage img;
 
