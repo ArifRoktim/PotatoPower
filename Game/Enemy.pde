@@ -1,7 +1,8 @@
+// Collideables all have circles as hitboxes
 class Enemy implements Collideable {
   int _hp;
-  int _xPos, _yPos; // x and y coordinates
-  int _width, _height;
+  int _xPos, _yPos; // x and y coordinates; is the top left corner of the sprite
+  int _rad; // radius of the circular hitbox
   ImageStorage img;
 
   Enemy( Map theMap, ImageStorage nimg) {
@@ -18,8 +19,7 @@ class Enemy implements Collideable {
     return false;
   }
 
-  public void drawObj(){
-
+  public void drawObj(){ 
   }
 
   public void move(){
@@ -46,9 +46,9 @@ class Enemy implements Collideable {
   }
 
   public int getWidth(){
-    return _width;
+    return _rad * 2;
   }
   public int getHeight(){
-    return _height;
+    return _rad * 2;
   }
 }
