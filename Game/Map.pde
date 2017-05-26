@@ -38,6 +38,8 @@ public class Map implements Drawable {
     placePath(7, 12);
     placePath(7, 13);
     placePath(7, 14);
+    _xStart = 7;
+    _yStart = 14;
   }
 
   public void drawObj() {

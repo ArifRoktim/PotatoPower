@@ -4,11 +4,12 @@ class Enemy implements Collideable {
   int _width, _height;
   ImageStorage img;
 
-  Enemy(ImageStorage nimg) {
+  Enemy( Map theMap, ImageStorage nimg) {
     _hp = 100;
     img = nimg;
     // the initial _xPos and _yPos are dependant on the Map
-    // Gotta make the Map class first
+    _xPos = theMap._xStart;
+    _yPos = theMap._yStart;
   }
 
   boolean isAlive() {
