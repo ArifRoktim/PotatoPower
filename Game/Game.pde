@@ -59,6 +59,13 @@ void doCollisions(){
 
     }
   }
-
 }
 
+void mouseClicked() {
+  int x = mouseX / 40;
+  int y = mouseY / 40;
+  if (_map.getTile(x, y).getTower() == null) {
+    _map.addTower(x, y);
+    print("Added tower");
+  }
+}

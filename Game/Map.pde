@@ -16,7 +16,7 @@ public class Map implements Drawable {
     int length = idealSquare();
     img = nimg;
     _map = new Tile [_width/length][_height/length];
-    for (int x= 0; x< _map.length; x++)
+    for (int x = 0; x < _map.length; x++)
       for (int y = 0; y < _map.length; y++)
         _map[y][x] = new Tile(y*40, x*40,-1,img);
   }
@@ -84,7 +84,15 @@ public class Map implements Drawable {
     image(img.tower(), x*40, y*40, 40, 40);
   }
   
-  ImageStorage getImg() {
+  public ImageStorage getImg() {
     return img;
+  }
+  
+  void addTower(int x, int y) {
+    _map[x][y].addTower(); //x, y or y, x TODO: Check weird behavior
+  }
+  
+  Tile getTile(int x, int y) {
+    return _map[x][y]; //same as addTower
   }
 }

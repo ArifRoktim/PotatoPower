@@ -22,16 +22,16 @@ class Tile implements Drawable {
     img = nimg;
   }
   
-  private int getValue() {
+  int getValue() {
     return _value;
   }
   
-  private int setValue(int target) {
+  int setValue(int target) {
     _value = target;
     return _value;
   }
 
-  void drawObj(){
+  public void drawObj(){
     switch(_type) {
       case GRASS:
         image(img.grass(), _xPos, _yPos);
@@ -48,8 +48,16 @@ class Tile implements Drawable {
     return img;
   }
   
-  public void setType(TileType t) {
+  void setType(TileType t) {
     _type = t;
+  }
+  
+  void addTower() {
+    _tower = new Tower(_xPos, _yPos, img);
+  }
+  
+  Drawable getTower() {
+    return _tower;
   }
 
 }
