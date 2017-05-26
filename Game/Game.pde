@@ -20,11 +20,22 @@ void setup() {
 
 void draw() {
   render();
+  //spawn(); // need to implement Enemy.drawObj() first
 }
 
+// Clear screen and redraw every Drawable
 void render(){
+  background( 0 );
   for( Drawable i: _drawables ){
     i.drawObj();
+  }
+}
+
+// Spawn enemy at the starting coordinates
+void spawn(){
+  // Spawn enemy every 5 seconds
+  if (frameCount % (5 * 60) == 0){
+    _drawables.add( new Enemy( _map, img ) );
   }
 }
 
