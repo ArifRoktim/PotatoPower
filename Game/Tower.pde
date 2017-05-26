@@ -1,14 +1,14 @@
-class Tower implements Drawable {
+class Tower implements Collideable {
   
   int _range;// maximum range to detect and shoot at an enemy
-  int _xPos, _yPos; // x and y coordinates
-  int _reloadTime;// seconds between successive shoys
+  int _xPos, _yPos,_width,_height; // x-y coordinates, and dimensions for the hitbox
+  int _reloadTime;// seconds between successive shots
   Queue<Enemy> _enemies; // enemies that towers will target 
   float _angle; // angle that projectile will be launched
   ImageStorage img;
   final int dim = 40;
   
-  public Tower( int x, int y, ImageStorage nimg ) {
+  public Tower ( int x, int y, ImageStorage nimg ) {
     _range = 5;
     _xPos = x;
     _yPos = y;
@@ -47,6 +47,35 @@ class Tower implements Drawable {
   
   public ImageStorage getImg() {
     return img;
+  }
+  
+  public void collide( Collideable other){
+  
+  }
+
+  public void collide(){ //needed?
+
+  }
+  
+  // movement for the projectiles
+  public void move(){
+    
+  }
+
+  public int getX(){
+    return _xPos;
+  }
+  
+  public int getY(){
+    return _yPos;
+  }
+
+  public int getWidth(){ 
+    return _width;
+  }
+  
+  public int getHeight(){
+    return _height;
   }
 
 }
