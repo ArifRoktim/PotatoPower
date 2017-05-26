@@ -46,12 +46,10 @@ LESSONS LEARNED
 
 2017-05-25
 --------------------------------------------------------------
-Arif :: Made Game use Map class instead of 2d array of Tiles
+Arif :: Made Game use Map class instead of 2d array of Tiles. Worked on using QuadTrees for collision detection.
 <Member> :: <Thing member did.>
 <Member> :: <Thing member did.>
 ==============================================================
-
-
 
 2017-05-24
 --------------------------------------------------------------
