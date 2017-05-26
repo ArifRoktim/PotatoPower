@@ -7,18 +7,28 @@ class Tile implements Drawable {
     ... etc ...
   */
   TileType _type;
-  int _xPos, _yPos; // x and y coordinates
+  int _xPos, _yPos,_value; // x and y coordinates
   Drawable _tower;
   final int dim = 40;
   ImageStorage img;
   
-  Tile( int x, int y, ImageStorage nimg) {
+  Tile( int x, int y, int value, ImageStorage nimg) {
     // generic terrain
+    _value = value;
     _type = TileType.GRASS;
     _tower = null;
     _xPos = x;
     _yPos = y;
     img = nimg;
+  }
+  
+  private int getValue() {
+    return _value;
+  }
+  
+  private int setValue(int target) {
+    _value = target;
+    return _value;
   }
 
   void drawObj(){

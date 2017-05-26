@@ -18,26 +18,26 @@ public class Map implements Drawable {
     _map = new Tile [_width/length][_height/length];
     for (int x= 0; x< _map.length; x++)
       for (int y = 0; y < _map.length; y++)
-        _map[y][x] = new Tile(y*40, x*40, img);
+        _map[y][x] = new Tile(y*40, x*40,-1,img);
   }
 
   // Maps: 
   void mapOne() {
-    placePath(14, 7);
-    placePath(13, 7);
-    placePath(12, 7);
-    placePath(11, 7);
-    placePath(10, 7);
-    placePath(9, 7);
-    placePath(8, 7);
-    placePath(7, 7);
-    placePath(7, 8);
-    placePath(7, 9);
-    placePath(7, 10);
-    placePath(7, 11);
-    placePath(7, 12);
-    placePath(7, 13);
-    placePath(7, 14);
+    placePath(14, 7, 1);
+    placePath(13, 7, 2);
+    placePath(12, 7, 3);
+    placePath(11, 7, 4);
+    placePath(10, 7, 5);
+    placePath(9, 7, 6);
+    placePath(8, 7, 7);
+    placePath(7, 7, 8);
+    placePath(7, 8, 9);
+    placePath(7, 9, 10);
+    placePath(7, 10, 11);
+    placePath(7, 11, 12);
+    placePath(7, 12, 13);
+    placePath(7, 13, 14);
+    placePath(7, 14, 15);
     _xStart = 7;
     _yStart = 14;
   }
@@ -68,8 +68,9 @@ public class Map implements Drawable {
   }
 
   // places path on the designated tile (row number, column number)
-  void placePath(int x, int y) {
+  void placePath(int x, int y, int val) {
     _map[y][x].setType(TileType.PATH);
+    _map[y][x].setValue(val);
   }
 
   // places grass on the designated tile (row number, column number)
