@@ -18,7 +18,7 @@ public class Map implements Drawable {
     _map = new Tile [_width/length][_height/length];
     for (int x = 0; x < _map.length; x++)
       for (int y = 0; y < _map.length; y++)
-        _map[y][x] = new Tile(y*40, x*40,-1,img);
+        _map[y][x] = new Tile(x*40, y*40,-1,img);
   }
 
   // Maps: 
@@ -89,7 +89,7 @@ public class Map implements Drawable {
   }
   
   void addTower(int x, int y) {
-    _map[x][y].addTower(); //x, y or y, x TODO: Check weird behavior
+    _map[y][x].addTower();
   }
   
   Tile getTile(int x, int y) {
