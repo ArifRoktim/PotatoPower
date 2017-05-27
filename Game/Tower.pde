@@ -62,11 +62,11 @@ class Tower implements Collideable {
     
   }
 
-  public int getX(){
+  public float getX(){
     return _xPos;
   }
   
-  public int getY(){
+  public float getY(){
     return _yPos;
   }
 

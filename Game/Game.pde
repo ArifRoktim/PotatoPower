@@ -23,7 +23,12 @@ void setup() {
 void draw() {
   render();
   doCollisions();
-  //spawn(); // need to implement Enemy.drawObj() first
+  spawn();
+  for( Drawable i: _drawables ){
+    if( i instanceof Enemy ){
+      ((Enemy) i).move();
+    }
+  }
 }
 
 // Clear screen and redraw every Drawable
@@ -38,6 +43,7 @@ void render(){
 void spawn(){
   // Spawn enemy every 5 seconds
   if (frameCount % (5 * 60) == 0){
+    //System.out.println( frameCount );
     _drawables.add( new Enemy( _map, img ) );
   }
 }
@@ -47,14 +53,16 @@ void doCollisions(){
   _qTree.clear();
   _qTree.insertCollideables( _drawables );
   List<Collideable> collideables = new LinkedList<Collideable>();
+  // Do collisions from the perspective of the enemy
   for( Drawable i: _drawables ){
-    // Do collisions from the perspective of the enemy
     if( i instanceof Enemy ){
+      // Populate collideables with every Collideable that Enemy i could collide with
       collideables.clear();
       _qTree.retrieve( collideables, (Collideable) i );
 
+      // Run actual collision detection algorithm between Enemy i and the collideables
       for( Collideable j: collideables ){
-        // run actual collision detection algorithm
+        //
       }
 
     }
@@ -64,7 +72,9 @@ void doCollisions(){
 void mouseClicked() {
   int x = mouseX / 40;
   int y = mouseY / 40;
-  if (_map.getTile(x, y).getTower() == null) {
+  if ( _map.getTile(x, y).towerPlaceable() ) {
+    // TODO: Make tile take a tower object as an arguement
+    // so that we can add the tower object to _drawables
     _map.addTower(x, y);
     print("Added tower");
   }

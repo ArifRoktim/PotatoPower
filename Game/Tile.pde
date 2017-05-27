@@ -1,12 +1,7 @@
 // functions similar to patches in netlogo
 class Tile implements Drawable {
   
-  /* int _type: The type of tile
-    0: Path tile for enemies to walk on
-    1: Grass tile for tower placement
-    ... etc ...
-  */
-  TileType _type;
+  TileType _type; // can be either PATH or GRASS
   int _xPos, _yPos,_value; // x and y coordinates
   Drawable _tower;
   final int dim = 40;
@@ -32,6 +27,7 @@ class Tile implements Drawable {
   }
 
   public void drawObj(){
+    // TODO: move drawing towers to Game.render()
     switch(_type) {
       case GRASS:
         image(img.grass(), _xPos, _yPos);
@@ -58,6 +54,10 @@ class Tile implements Drawable {
   
   Drawable getTower() {
     return _tower;
+  }
+
+  boolean towerPlaceable(){
+    return _type == TileType.GRASS && getTower() == null;
   }
 
 }

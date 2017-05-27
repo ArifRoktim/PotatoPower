@@ -1,6 +1,6 @@
 class Projectile implements Collideable {
   int damage;
-  int _xPos, _yPos; // x and y coordinates
+  float _xPos, _yPos; // x and y coordinates
   int _rad;
   int _dx, _dy; // change in x and y
   ImageStorage img;
@@ -34,10 +34,10 @@ class Projectile implements Collideable {
     return img;
   }
 
-  public int getX(){
+  public float getX(){
     return _xPos;
   }
-  public int getY(){
+  public float getY(){
     return _yPos;
   }
 
