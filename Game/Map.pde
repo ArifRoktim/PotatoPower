@@ -6,16 +6,14 @@ public class Map implements Drawable {
   int _height;
   int _xStart;
   int _yStart;
-  int _xEnd;
-  int _yEnd;
   ImageStorage img;
 
   public Map(ImageStorage nimg) {
-    _width = width;
-    _height = height;
-    int length = idealSquare();
     img = nimg;
-    _map = new Tile [_width/length][_height/length];
+    int length = idealSquare();
+    _width = width/length; // number of rows
+    _height = height/length; // number of columns
+    _map = new Tile [_width][_height];
     for (int x = 0; x < _map.length; x++)
       for (int y = 0; y < _map.length; y++)
         _map[y][x] = new Tile(x*40, y*40,-1,img);
@@ -50,12 +48,12 @@ public class Map implements Drawable {
 
   // finds the dimensions of the largest square tile possible given the dimensions of the processing window
   int idealSquare() { 
-    double product = _width * _height;
+    double product = width * height;
     int num;
-    if (_width > _height)
-      num = (_width/2); // prevents return value from being too large
+    if (width > height)
+      num = (width/2); // prevents return value from being too large
     else
-      num = (_height/2);
+      num = (height/2);
     boolean solved = false; // prevents return value from being too large
     while (!solved) {
       double divis = ((double)product/((double)(Math.pow(num, 2)))); // returns area divided squared number
@@ -93,6 +91,6 @@ public class Map implements Drawable {
   }
   
   Tile getTile(int x, int y) {
-    return _map[x][y]; //same as addTower
+    return _map[y][x];
   }
 }
