@@ -11,9 +11,9 @@ public class Map implements Drawable {
   public Map(ImageStorage nimg) {
     img = nimg;
     int length = idealSquare();
-    _width = width/length; // number of rows
-    _height = height/length; // number of columns
-    _map = new Tile [_width][_height];
+    _width = width/length; // number of columns
+    _height = height/length; // number of rows
+    _map = new Tile [_height][_width];
     for (int x = 0; x < _map.length; x++)
       for (int y = 0; y < _map.length; y++)
         _map[y][x] = new Tile(x*40, y*40,-1,img);
