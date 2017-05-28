@@ -54,6 +54,7 @@ class Enemy implements Collideable {
         tiles.add( _map.getTile( (int) _yPos - 1, (int) _yPos ) );
       // TODO: Case where dead end is reached
       if( tiles.size() == 0 ){
+        delay( 15000 );
         exit();
         return;
       }
@@ -76,17 +77,11 @@ class Enemy implements Collideable {
       System.out.println( "_dx, _dy: " + _dx + ", " + _dy );
       */
       _xPos += _dx; _yPos += _dy;
-      // If I've reached my target
-      /* TODO: FIX BUG
-       * This if statement is bugged.
-       * Currently: Doesnt return true
-       * Should: Return true if enemy has reached the coordinates of its target
-       */
-      if( (int) _xPos == _target._xPos && (int) _yPos == _target._yPos ){
+      if( (int) _xPos == _target._xPos / 40 && (int) _yPos == _target._yPos / 40 ){
         _target = null;
         // Round off x and y pos
-        _xPos = (int) _xPos;
-        _yPos = (int) _yPos;
+        //_xPos = (int) _xPos;
+        //_yPos = (int) _yPos;
       }
     }
 
