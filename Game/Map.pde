@@ -86,10 +86,6 @@ public class Map implements Drawable {
     return img;
   }
   
-  void addTower(int x, int y) {
-    _map[y][x].addTower();
-  }
-  
   Tile getTile(int x, int y) {
     return _map[y][x];
   }

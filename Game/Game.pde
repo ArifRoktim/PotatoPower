@@ -75,7 +75,9 @@ void mouseClicked() {
   if ( _map.getTile(x, y).towerPlaceable() ) {
     // TODO: Make tile take a tower object as an arguement
     // so that we can add the tower object to _drawables
-    _map.addTower(x, y);
-    print("Added tower");
+    Tower newTower = new Tower( x * 40, y * 40, img );
+    _map.getTile( x, y ).addTower( newTower );
+    _drawables.add( newTower );
+    println("Added tower");
   }
 }

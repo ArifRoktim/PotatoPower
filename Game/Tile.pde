@@ -27,12 +27,9 @@ class Tile implements Drawable {
   }
 
   public void drawObj(){
-    // TODO: move drawing towers to Game.render()
     switch(_type) {
       case GRASS:
         image(img.grass(), _xPos, _yPos);
-        if (_tower != null)
-          _tower.drawObj();
         break;
       case PATH:
         image(img.path(),  _xPos, _yPos);
@@ -48,8 +45,8 @@ class Tile implements Drawable {
     _type = t;
   }
   
-  void addTower() {
-    _tower = new Tower(_xPos, _yPos, img);
+  void addTower( Tower tower ) {
+    _tower = tower;
   }
   
   Drawable getTower() {
