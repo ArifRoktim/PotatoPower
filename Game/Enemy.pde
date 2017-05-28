@@ -36,7 +36,8 @@ class Enemy implements Collideable {
   public void move(){
     if( _target == null ){
       _dx = _dy = 0;
-      System.out.println( "Target is null" );
+      System.out.println( "Info Update:\nTarget is null" );
+      System.out.println(printInfo());
       int myValue = _map.getTile( (int) _xPos, (int) _yPos )._value; // value of tile that im on
       List<Tile> tiles = new ArrayList<Tile>(4);
       // Add tiles that have greater value than current tile to list
@@ -111,5 +112,27 @@ class Enemy implements Collideable {
   }
   public int getHeight(){
     return _rad * 2;
+  }
+  
+  // prints information about the surrounding tiles
+   String printInfo() {
+    String retVal="";
+    if (_xPos+1<_map._width){
+      Tile tile1= _map.getTile((int)_xPos+1 ,(int)_yPos);
+      retVal+= "Right Tile- Value: " + tile1._value;
+    }
+    if (_xPos-1<_map._width){
+      Tile tile2= _map.getTile((int)_xPos-1 ,(int)_yPos);
+      retVal+= "\nLeft tile- Value: " + tile2._value;
+    }
+    if (_xPos+1<_map._width){
+      Tile tile3= _map.getTile((int)_xPos ,(int)_yPos+1);
+      retVal+= "\nBottom tile: " + tile3._value;
+    }
+    if (_yPos+1<_map._width){
+      Tile tile4= _map.getTile((int)_xPos ,(int)_yPos-1);
+      retVal+= "\nTop tile- Value: " + tile4._value;
+    }
+    return retVal;
   }
 }

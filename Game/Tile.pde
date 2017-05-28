@@ -7,6 +7,10 @@ class Tile implements Drawable {
   final int dim = 40;
   ImageStorage img;
   
+  // allows access to dim by outside classes (don't delete
+  Tile(){
+  }
+  
   Tile( int x, int y, int value, ImageStorage nimg) {
     // generic terrain
     _value = value;
@@ -30,9 +34,11 @@ class Tile implements Drawable {
     switch(_type) {
       case GRASS:
         image(img.grass(), _xPos, _yPos);
+         text(String.valueOf(_value), _xPos + (.5 * dim), _yPos + ( .5 * dim));
         break;
       case PATH:
         image(img.path(),  _xPos, _yPos);
+         text(String.valueOf(_value), _xPos + (.5 * dim), _yPos + ( .5 * dim));
         break;
     }
   }
