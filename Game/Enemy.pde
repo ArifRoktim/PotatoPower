@@ -1,11 +1,15 @@
 // Collideables all have circles as hitboxes
 class Enemy implements Collideable {
   int _hp;
-  float _xPos, _yPos; // x and y coordinates; is the top left corner of the sprite
+  float _xPos, _yPos; // x and y position on Map (i.e., the row and column in the 2d array of tiles)
   int _rad; // radius of the circular hitbox
   ImageStorage img;
-  int _targetX, _targetY;
-  int _dx, _dy;
+  Tile _target; // The tile that Enemy should be moving toward
+  float _d; // speed of Enemy
+  /* _dx and _dy are the horizontal and vertical speed
+   * they will be the product of _d and either -1 or 1 
+   */
+  float _dx, _dy;
   Map _map;
 
   Enemy( Map theMap, ImageStorage nimg) {
@@ -16,22 +20,76 @@ class Enemy implements Collideable {
     _xPos = theMap._xStart;
     _yPos = theMap._yStart;
     _map = theMap;
-    _dx = _dy = 10;
+    _d = .1;
   }
 
   boolean isAlive() {
-    if (_hp > 0)
-      return true;
-    return false;
+    return _hp > 0;
   }
 
   public void drawObj(){ 
     ellipseMode(CORNER);
     ellipse( _xPos * 40, _yPos * 40, _rad * 2, _rad * 2 );
-    System.out.println( _xPos + " " + _yPos + " " + _rad * 2 );
+    //System.out.println( _xPos + " " + _yPos + " " + _rad * 2 );
   }
 
   public void move(){
+    if( _target == null ){
+      _dx = _dy = 0;
+      System.out.println( "Target is null" );
+      int myValue = _map.getTile( (int) _xPos, (int) _yPos )._value; // value of tile that im on
+      List<Tile> tiles = new ArrayList<Tile>(4);
+      // Add tiles that have greater value than current tile to list
+      if( (int) _xPos + 1 > _map._width &&
+          _map.getTile( (int) _xPos + 1, (int) _yPos )._value > myValue )
+        tiles.add( _map.getTile( (int) _xPos + 1, (int) _yPos ) );
+      if( (int) _xPos - 1 > 0 &&
+          _map.getTile( (int) _xPos - 1, (int) _yPos )._value > myValue )
+        tiles.add( _map.getTile( (int) _xPos - 1, (int) _yPos ) );
+      if( (int) _yPos + 1 > _map._height &&
+          _map.getTile( (int) _yPos + 1, (int) _yPos )._value > myValue )
+        tiles.add( _map.getTile( (int) _yPos + 1, (int) _yPos ) );
+      if( (int) _yPos - 1 > 0 &&
+          _map.getTile( (int) _yPos - 1, (int) _yPos )._value > myValue )
+        tiles.add( _map.getTile( (int) _yPos - 1, (int) _yPos ) );
+      // TODO: Case where dead end is reached
+      if( tiles.size() == 0 ){
+        exit();
+        return;
+      }
+      // Choose a random target
+      _target = tiles.get( (int) (Math.random() * tiles.size()) );
+      // Set speeds
+      _dx = _d *  Math.signum( _target._xPos / 40 - _xPos );
+      _dy = _d *  Math.signum( _target._yPos / 40 - _yPos );
+      System.out.println( "_xPos, _yPos: " + _xPos + ", " + _yPos );
+      System.out.println( "_dx, _dy: " + _dx + ", " + _dy );
+    } else {
+      /*
+      System.out.println();
+      System.out.println( "Target: " + _target._value );
+      System.out.println( "My tile: " + _map.getTile( (int) _xPos, (int) _yPos )._value );
+      */
+      // Move accordingly
+      /*
+      System.out.println( "_xPos, _yPos: " + _xPos + ", " + _yPos );
+      System.out.println( "_dx, _dy: " + _dx + ", " + _dy );
+      */
+      _xPos += _dx; _yPos += _dy;
+      // If I've reached my target
+      /* TODO: FIX BUG
+       * This if statement is bugged.
+       * Currently: Doesnt return true
+       * Should: Return true if enemy has reached the coordinates of its target
+       */
+      if( (int) _xPos == _target._xPos && (int) _yPos == _target._yPos ){
+        _target = null;
+        // Round off x and y pos
+        _xPos = (int) _xPos;
+        _yPos = (int) _yPos;
+      }
+    }
+
   }
 
   public void collide(){
