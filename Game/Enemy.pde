@@ -20,7 +20,9 @@ class Enemy implements Collideable {
     _xPos = theMap._xStart;
     _yPos = theMap._yStart;
     _map = theMap;
-    _d = .1;
+    _d = .05;
+    _target = _map.getTile((int)_xPos, (int)_yPos);
+    setMovement();
   }
 
   boolean isAlive() {
@@ -30,78 +32,51 @@ class Enemy implements Collideable {
   public void drawObj(){ 
     ellipseMode(CORNER);
     ellipse( _xPos * 40, _yPos * 40, _rad * 2, _rad * 2 );
-    System.out.println(printInfo());
+    //System.out.println(printInfo());
     //System.out.println( _xPos + " " + _yPos + " " + _rad * 2 );
   }
 
-  public void move(){
-    if( _target == null ){
+  public void move() {
+    println("me: x:" + _xPos + " y:" + _yPos + " target: x:" + _target.getX() + " y:" + _target.getY());
+    setMovement();
+    _xPos += _dx;
+    _yPos += _dy;
+    
+    if (dist(_xPos*40, _yPos*40, _target.getX()*40, _target.getY()*40) < 10) { //if you have reached target
+      //print("reached target");
       _dx = _dy = 0;
-      System.out.println( "Info Update:\nTarget is null" );
-      int myValue = _map.getTile( (int) _xPos, (int) _yPos )._value; // value of tile that im on
-      List<Tile> tiles = new ArrayList<Tile>(4);
-      // Add tiles that have greater value than current tile to list
-      // Changes the dir of the tile 
-      boolean hori = false;// target requires horizontal movement
-      boolean vert = false;// target requires vertical movement
-      if( (int) _xPos + 1 < _map._width &&
-          _map.getTile( (int) _xPos + 1, (int) _yPos )._value > myValue ){
-        tiles.add( _map.getTile( (int) _xPos + 1, (int) _yPos ) );
-        hori = true;
-          }
-      if( (int) _xPos - 1 > 0 &&
-          _map.getTile( (int) _xPos - 1, (int) _yPos )._value > myValue ){
-        tiles.add( _map.getTile( (int) _xPos - 1, (int) _yPos ) );
-         hori= true;
-          }
-      if( (int) _yPos + 1 < _map._height &&
-          _map.getTile( (int) _xPos, (int) _yPos+1 )._value > myValue ){
-        tiles.add( _map.getTile( (int) _xPos, (int) _yPos+1 ) );
-        vert = true;
-          }
-      if( (int) _yPos - 1 > 0 &&
-          _map.getTile( (int) _xPos, (int) _yPos-1 )._value > myValue ){
-        tiles.add( _map.getTile( (int) _xPos, (int) _yPos-1 ) );
-        vert = true;
-          }
-      // TODO: Case where dead end is reached
-      if( tiles.size() == 0 ){
-        delay( 15000 );
-        exit();
-        return;
-      }
-      // Choose a random target
-      _target = tiles.get( (int) (Math.random() * tiles.size()) );
-      // Set speeds
-     // if (_target.dir==1||_target.dir==3)
-     if (hori)
-      _dx = _d *  Math.signum( _target._xPos / 40 - _xPos );
-     //if (_target.dir==2||_target.dir==4)
-     else if (vert)
-      _dy = _d *  Math.signum( _target._yPos / 40 - _yPos );
-      System.out.println( "_xPos, _yPos: " + _xPos + ", " + _yPos );
-      System.out.println( "_dx, _dy: " + _dx + ", " + _dy );
-      delay(7000);
-    } else {
-      /*
-      System.out.println();
-      System.out.println( "Target: " + _target._value );
-      System.out.println( "My tile: " + _map.getTile( (int) _xPos, (int) _yPos )._value );
-      */
-      // Move accordingly
-      /*
-      System.out.println( "_xPos, _yPos: " + _xPos + ", " + _yPos );
-      System.out.println( "_dx, _dy: " + _dx + ", " + _dy );
-      */
-      _xPos += _dx; _yPos += _dy;
-      if( (int) _xPos == _target._xPos / 40 && (int) _yPos == _target._yPos / 40 ){
-        _target = null;
-        // Round off x and y pos
-        //_xPos = (int) _xPos;
-        //_yPos = (int) _yPos;
-      }
+      Tile up = _map.getUp(_target);
+      Tile down = _map.getDown(_target);
+      Tile left = _map.getLeft(_target);
+      Tile right = _map.getRight(_target);
+      
+      if (up != null && up.getValue() > _target.getValue())
+        _target = up;
+      else if (down != null && down.getValue() > _target.getValue())
+        _target = down;
+      else if (left != null && left.getValue() > _target.getValue())
+        _target = left;
+      else if (right != null && right.getValue() > _target.getValue())
+        _target = right;
+      setMovement();
     }
-
+  }
+  
+  private void setMovement() {  
+    float deltaX = _target.getX() - _xPos;
+    float deltaY = _target.getY() - _yPos;
+    float delta = deltaX + deltaY;
+    if (_target.getX() < _xPos) {
+      _dx = -1*_d;
+    } else if (_target.getX() > _xPos) {
+      _dx = _d;
+    }
+    if (_target.getY() < _yPos) {
+      _dy = -1*_d;
+    } else if (_target.getY() > _yPos) {
+      _dy = _d;
+    }
+    
   }
 
   public void collide(){

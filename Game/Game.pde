@@ -21,7 +21,6 @@ void setup() {
 }
 
 void draw() {
-  render();
   spawn();
   doCollisions();
   for( Drawable i: _drawables ){
@@ -29,6 +28,8 @@ void draw() {
       ((Enemy) i).move();
     }
   }
+  
+  render();
 }
 
 // Clear screen and redraw every Drawable
@@ -41,8 +42,8 @@ void render(){
 
 // Spawn enemy at the starting coordinates
 void spawn(){
-  // Spawn enemy every 5 seconds
-  if (frameCount % (5 * 60) == 0){
+  // Spawn enemy every 2 seconds
+  if (frameCount % (2 * 60) == 0){
     //System.out.println( frameCount );
     _drawables.add( new Enemy( _map, img ) );
   }
@@ -75,7 +76,7 @@ void mouseClicked() {
   if ( _map.getTile(x, y).towerPlaceable() ) {
     // TODO: Make tile take a tower object as an arguement
     // so that we can add the tower object to _drawables
-    Tower newTower = new Tower( x * 40, y * 40, img );
+    Tower newTower = new Tower( x, y, img );
     _map.getTile( x, y ).addTower( newTower );
     _drawables.add( newTower );
     println("Added tower");

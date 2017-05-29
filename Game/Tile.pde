@@ -2,7 +2,7 @@
 class Tile implements Drawable {
   
   TileType _type; // can be either PATH or GRASS
-  int _xPos, _yPos,_value; // x and y coordinates
+  int _xPos, _yPos, _value; // x and y coordinates
   Drawable _tower;
   final int dim = 40;
   ImageStorage img;
@@ -33,12 +33,12 @@ class Tile implements Drawable {
   public void drawObj(){
     switch(_type) {
       case GRASS:
-        image(img.grass(), _xPos, _yPos);
-         text(String.valueOf(_value), _xPos + (.5 * dim), _yPos + ( .5 * dim));
+        image(img.grass(), _xPos*dim, _yPos*dim);
+         text(String.valueOf(_value), _xPos*dim + (.5 * dim), _yPos*dim + ( .5 * dim));
         break;
       case PATH:
-        image(img.path(),  _xPos, _yPos);
-         text(String.valueOf(_value), _xPos + (.5 * dim), _yPos + ( .5 * dim));
+        image(img.path(),  _xPos*dim, _yPos*dim);
+         text(String.valueOf(_value), _xPos*dim + (.5 * dim), _yPos*dim + ( .5 * dim));
         break;
     }
   }
@@ -61,6 +61,14 @@ class Tile implements Drawable {
 
   boolean towerPlaceable(){
     return _type == TileType.GRASS && getTower() == null;
+  }
+  
+  int getX() {
+    return _xPos;
+  }
+  
+  int getY() {
+    return _yPos;
   }
 
 }

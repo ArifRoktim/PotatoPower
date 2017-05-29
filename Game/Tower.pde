@@ -19,9 +19,9 @@ class Tower implements Collideable {
   }
   
   public void drawObj() {
-    image(img.tower(), _xPos, _yPos, dim, dim);
+    image(img.tower(), _xPos*dim, _yPos*dim, dim, dim);
     pushMatrix();
-    translate(_xPos + dim/2, _yPos + dim/2);
+    translate(_xPos*dim + dim/2, _yPos*dim + dim/2);
     rotate(_angle);
     image(img.turret(), -dim/2, -dim/2, dim, dim);
     popMatrix();

@@ -17,7 +17,7 @@ public class Map implements Drawable {
     _map = new Tile [_height][_width];
     for (int x = 0; x < _map.length; x++)
       for (int y = 0; y < _map.length; y++)
-        _map[y][x] = new Tile(x*40, y*40,-1,img);
+        _map[y][x] = new Tile(x, y,-1,img);
   }
 
   // Maps: 
@@ -89,5 +89,29 @@ public class Map implements Drawable {
   
   Tile getTile(int x, int y) {
     return _map[y][x];
+  }
+  
+  Tile getLeft(Tile t) {
+    if (t.getX() - 1 < 0)
+      return null;
+    return _map[t.getY()][t.getX() - 1];
+  }
+  
+  Tile getRight(Tile t) {
+    if (t.getX() + 1 > 14)
+      return null;
+    return _map[t.getY()][t.getX() + 1];
+  }
+  
+  Tile getUp(Tile t) {
+    if (t.getY() - 1 < 0)
+      return null;
+    return _map[t.getY() - 1][t.getX()];
+  }
+  
+  Tile getDown(Tile t) {
+    if (t.getY() + 1 > 14)
+      return null;
+    return _map[t.getY() + 1][t.getX()];
   }
 }
