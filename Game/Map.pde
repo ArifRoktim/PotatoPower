@@ -4,9 +4,8 @@ public class Map implements Drawable {
   Tile [][] _map;
   int _width;
   int _height;
-  int _xStart;
-  int _yStart;
   ImageStorage img;
+  Tile _start, _end;
 
   public Map(ImageStorage nimg) {
     img = nimg;
@@ -17,28 +16,56 @@ public class Map implements Drawable {
     _map = new Tile [_height][_width];
     for (int x = 0; x < _map.length; x++)
       for (int y = 0; y < _map.length; y++)
-        _map[y][x] = new Tile(x, y,-1,img);
+        _map[y][x] = new Tile(x, y, -1,img);
+    _start = _end = null;
   }
 
   // Maps: 
   void mapOne() {
-    placePath(14, 7, 1);
-    placePath(13, 7, 2);
-    placePath(12, 7, 3);
-    placePath(11, 7, 4);
-    placePath(10, 7, 5);
-    placePath(9, 7, 6);
-    placePath(8, 7, 7);
-    placePath(7, 7, 8);
-    placePath(7, 8, 9);
-    placePath(7, 9, 10);
-    placePath(7, 10, 11);
-    placePath(7, 11, 12);
-    placePath(7, 12, 13);
-    placePath(7, 13, 14);
-    placePath(7, 14, 15);
-    _xStart = 14;
-    _yStart = 7;
+    placePath(14, 7);
+    placePath(13, 7);
+    placePath(12, 7);
+    placePath(11, 7);
+    placePath(10, 7);
+    placePath(9, 7);
+    placePath(8, 7);
+    placePath(7, 7);
+    placePath(7, 8);
+    placePath(7, 9);
+    placePath(7, 10);
+    placePath(7, 11);
+    placePath(7, 12);
+    placePath(7, 13);
+    placePath(7, 14);
+    _start = _map[7][14];
+    setValues();
+  }
+  
+  private void setValues() {
+    int currentVal = 1;
+    Tile currentTile = _start;
+    while (currentTile != _end) {
+      Tile up = getUp(currentTile);
+      Tile down = getDown(currentTile);
+      Tile left = getLeft(currentTile);
+      Tile right = getRight(currentTile);
+      
+      if (up != null && up.getValue() == 0) {
+        currentTile = up;
+        currentTile.setValue(currentVal);
+      } else if (down != null && down.getValue() == 0) {
+        currentTile = down;
+        currentTile.setValue(currentVal);
+      } else if (left != null && left.getValue() == 0) {
+        currentTile = left;
+        currentTile.setValue(currentVal);
+      } else if (right != null && right.getValue() == 0) {
+        currentTile = right;
+        currentTile.setValue(currentVal);
+      }
+      currentVal++;
+    }
+    _end.setValue(currentVal);
   }
 
   public void drawObj() {
@@ -67,9 +94,10 @@ public class Map implements Drawable {
   }
 
   // places path on the designated tile (row number, column number)
-  void placePath(int x, int y, int val) {
+  void placePath(int x, int y) {
     _map[y][x].setType(TileType.PATH);
-    _map[y][x].setValue(val);
+    _map[y][x].setValue(0);
+    _end = _map[y][x];
   }
 
   // places grass on the designated tile (row number, column number)
@@ -113,5 +141,13 @@ public class Map implements Drawable {
     if (t.getY() + 1 > 14)
       return null;
     return _map[t.getY() + 1][t.getX()];
+  }
+  
+  Tile getStart() {
+    return _start;
+  }
+  
+  Tile getEnd() {
+    return _end;
   }
 }

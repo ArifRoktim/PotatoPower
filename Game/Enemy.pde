@@ -17,8 +17,8 @@ class Enemy implements Collideable {
     _rad = 20; // TODO: replace 20 with half the width/height of a Tile
     img = nimg;
     // the initial _xPos and _yPos are dependant on the Map
-    _xPos = theMap._xStart;
-    _yPos = theMap._yStart;
+    _xPos = theMap.getStart().getX();
+    _yPos = theMap.getStart().getY();
     _map = theMap;
     _d = .05;
     _target = _map.getTile((int)_xPos, (int)_yPos);
@@ -37,7 +37,7 @@ class Enemy implements Collideable {
   }
 
   public void move() {
-    println("me: x:" + _xPos + " y:" + _yPos + " target: x:" + _target.getX() + " y:" + _target.getY());
+    //println("me: x:" + _xPos + " y:" + _yPos + " target: x:" + _target.getX() + " y:" + _target.getY());
     setMovement();
     _xPos += _dx;
     _yPos += _dy;
