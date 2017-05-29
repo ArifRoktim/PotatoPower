@@ -30,6 +30,7 @@ class Enemy implements Collideable {
   public void drawObj(){ 
     ellipseMode(CORNER);
     ellipse( _xPos * 40, _yPos * 40, _rad * 2, _rad * 2 );
+    System.out.println(printInfo());
     //System.out.println( _xPos + " " + _yPos + " " + _rad * 2 );
   }
 
@@ -37,22 +38,32 @@ class Enemy implements Collideable {
     if( _target == null ){
       _dx = _dy = 0;
       System.out.println( "Info Update:\nTarget is null" );
-      System.out.println(printInfo());
       int myValue = _map.getTile( (int) _xPos, (int) _yPos )._value; // value of tile that im on
       List<Tile> tiles = new ArrayList<Tile>(4);
       // Add tiles that have greater value than current tile to list
-      if( (int) _xPos + 1 > _map._width &&
-          _map.getTile( (int) _xPos + 1, (int) _yPos )._value > myValue )
+      // Changes the dir of the tile 
+      boolean hori = false;// target requires horizontal movement
+      boolean vert = false;// target requires vertical movement
+      if( (int) _xPos + 1 < _map._width &&
+          _map.getTile( (int) _xPos + 1, (int) _yPos )._value > myValue ){
         tiles.add( _map.getTile( (int) _xPos + 1, (int) _yPos ) );
+        hori = true;
+          }
       if( (int) _xPos - 1 > 0 &&
-          _map.getTile( (int) _xPos - 1, (int) _yPos )._value > myValue )
+          _map.getTile( (int) _xPos - 1, (int) _yPos )._value > myValue ){
         tiles.add( _map.getTile( (int) _xPos - 1, (int) _yPos ) );
-      if( (int) _yPos + 1 > _map._height &&
-          _map.getTile( (int) _yPos + 1, (int) _yPos )._value > myValue )
-        tiles.add( _map.getTile( (int) _yPos + 1, (int) _yPos ) );
+         hori= true;
+          }
+      if( (int) _yPos + 1 < _map._height &&
+          _map.getTile( (int) _xPos, (int) _yPos+1 )._value > myValue ){
+        tiles.add( _map.getTile( (int) _xPos, (int) _yPos+1 ) );
+        vert = true;
+          }
       if( (int) _yPos - 1 > 0 &&
-          _map.getTile( (int) _yPos - 1, (int) _yPos )._value > myValue )
-        tiles.add( _map.getTile( (int) _yPos - 1, (int) _yPos ) );
+          _map.getTile( (int) _xPos, (int) _yPos-1 )._value > myValue ){
+        tiles.add( _map.getTile( (int) _xPos, (int) _yPos-1 ) );
+        vert = true;
+          }
       // TODO: Case where dead end is reached
       if( tiles.size() == 0 ){
         delay( 15000 );
@@ -62,10 +73,15 @@ class Enemy implements Collideable {
       // Choose a random target
       _target = tiles.get( (int) (Math.random() * tiles.size()) );
       // Set speeds
+     // if (_target.dir==1||_target.dir==3)
+     if (hori)
       _dx = _d *  Math.signum( _target._xPos / 40 - _xPos );
+     //if (_target.dir==2||_target.dir==4)
+     else if (vert)
       _dy = _d *  Math.signum( _target._yPos / 40 - _yPos );
       System.out.println( "_xPos, _yPos: " + _xPos + ", " + _yPos );
       System.out.println( "_dx, _dy: " + _dx + ", " + _dy );
+      delay(7000);
     } else {
       /*
       System.out.println();
@@ -133,6 +149,6 @@ class Enemy implements Collideable {
       Tile tile4= _map.getTile((int)_xPos ,(int)_yPos-1);
       retVal+= "\nTop tile- Value: " + tile4._value;
     }
-    return retVal;
+    return retVal + "\n";
   }
 }

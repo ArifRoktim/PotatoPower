@@ -22,8 +22,8 @@ void setup() {
 
 void draw() {
   render();
-  doCollisions();
   spawn();
+  doCollisions();
   for( Drawable i: _drawables ){
     if( i instanceof Enemy ){
       ((Enemy) i).move();
