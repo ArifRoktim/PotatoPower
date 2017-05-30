@@ -4,11 +4,15 @@ import java.util.Queue;
 import java.awt.Rectangle;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.ArrayDeque;
 
 Map _map;
 ImageStorage img;
-List<Drawable> _drawables;
+List<Enemy> enemies;
+List<Projectile> projectiles;
 QuadTree _qTree;
+ArrayDeque<Enemy> enemyQueue;
+int lives;
 
 void setup() {
   size(600, 600); //15x15 tiles
@@ -16,56 +20,66 @@ void setup() {
   img = new ImageStorage();
   _map = new Map(img);
   _map.mapOne();
-  _drawables = new LinkedList();
-  _drawables.add( _map );
+  enemies = new LinkedList();
+  projectiles = new LinkedList();
+  lives = 10;
+  enemyQueue = new ArrayDeque<Enemy>();
+  for (int i = 0; i < 10; i++)
+    enemyQueue.add(new Enemy(_map, img));
+  textSize(24);
 }
 
 void draw() {
   spawn();
   doCollisions();
-  for( Drawable i: _drawables ){
-    if( i instanceof Enemy ){
-      ((Enemy) i).move();
-    }
+  for ( Enemy e : enemies ) {
+    e.move();
   }
+  //TODO: if enemy reaches end, decrease lives
+  if (dist(enemies.peek().getX()*40, _yPos*40, _target.getX()*40, _target.getY()*40) < 5) { //if enemy have reached end
   
+  //}
+
   render();
 }
 
 // Clear screen and redraw every Drawable
-void render(){
+void render() {
   background( 0 );
-  for( Drawable i: _drawables ){
-    i.drawObj();
+  _map.drawObj();
+  for ( Enemy e : enemies ) {
+    e.drawObj();
   }
+  for ( Projectile p : projectiles ) {
+    p.drawObj();
+  }
+  text("Lives: " + lives, 20, 40);
 }
 
 // Spawn enemy at the starting coordinates
-void spawn(){
+void spawn() {
   // Spawn enemy every 2 seconds
-  if (frameCount % (2 * 60) == 0){
+  if (frameCount % (2 * 60) == 0 && !enemyQueue.isEmpty()) {
     //System.out.println( frameCount );
-    _drawables.add( new Enemy( _map, img ) );
+    enemies.add( enemyQueue.remove() );
   }
 }
 
-void doCollisions(){
+void doCollisions() {
   // Clear and repopulate QuadTree
   _qTree.clear();
-  _qTree.insertCollideables( _drawables );
+  _qTree.insertCollideables( enemies );
+  _qTree.insertCollideables( projectiles );
   List<Collideable> collideables = new LinkedList<Collideable>();
   // Do collisions from the perspective of the enemy
-  for( Drawable i: _drawables ){
-    if( i instanceof Enemy ){
-      // Populate collideables with every Collideable that Enemy i could collide with
-      collideables.clear();
-      _qTree.retrieve( collideables, (Collideable) i );
+  for ( Enemy i : enemies ) {
+    // Populate collideables with every Collideable that Enemy i could collide with
+    collideables.clear();
+    _qTree.retrieve( collideables, (Collideable) i );
 
-      // Run actual collision detection algorithm between Enemy i and the collideables
-      for( Collideable j: collideables ){
-        //
-      }
-
+    // Run actual collision detection algorithm between Enemy i and the collideables
+    for ( Collideable j : collideables ) {
+      //
     }
   }
 }
@@ -78,7 +92,6 @@ void mouseClicked() {
     // so that we can add the tower object to _drawables
     Tower newTower = new Tower( x, y, img );
     _map.getTile( x, y ).addTower( newTower );
-    _drawables.add( newTower );
     println("Added tower");
   }
 }

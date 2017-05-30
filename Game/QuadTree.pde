@@ -1,6 +1,6 @@
 // Main reference and credit: https://gamedevelopment.tutsplus.com/tutorials/quick-tip-use-quadtrees-to-detect-likely-collisions-in-2d-space--gamedev-374
 
-public class QuadTree{
+public class QuadTree {
 
   int _maxObjects;
   int _maxLevels;
@@ -10,7 +10,7 @@ public class QuadTree{
   QuadTree[] _nodes;
   QuadTree _parent;
 
-  QuadTree( int level, Rectangle bounds ){
+  QuadTree( int level, Rectangle bounds ) {
     _level = level;
     _objects = new ArrayList();
     _bounds = bounds;
@@ -18,10 +18,10 @@ public class QuadTree{
   }
 
   // Clears QuadTree
-  public void clear(){
+  public void clear() {
     _objects.clear();
-    for( int i = 0; i < _nodes.length; i++ ){
-      if( _nodes[i] != null ){
+    for ( int i = 0; i < _nodes.length; i++ ) {
+      if ( _nodes[i] != null ) {
         _nodes[i].clear();
         _nodes[i] = null;
       }
@@ -40,11 +40,11 @@ public class QuadTree{
     _nodes[3] = new QuadTree(_level+1, new Rectangle(x + subWidth, y + subHeight, subWidth, subHeight));
   }
 
-/*
+  /*
  * Determine which node the object belongs to. -1 means
- * object cannot completely fit within a child node and is part
- * of the parent node
- */
+   * object cannot completely fit within a child node and is part
+   * of the parent node
+   */
   private int getIndex(Collideable object) {
     int index = -1;
     double verticalMidpoint = _bounds.getX() + (_bounds.getWidth() / 2);
@@ -57,19 +57,17 @@ public class QuadTree{
 
     // Object can completely fit within the left quadrants
     if (object.getX() < verticalMidpoint && object.getX() + object.getWidth() < verticalMidpoint) {
-       if (topQuadrant) {
-         index = 1;
-       }
-       else if (bottomQuadrant) {
-         index = 2;
-       }
-     }
-     // Object can completely fit within the right quadrants
-     else if (object.getX() > verticalMidpoint) {
+      if (topQuadrant) {
+        index = 1;
+      } else if (bottomQuadrant) {
+        index = 2;
+      }
+    }
+    // Object can completely fit within the right quadrants
+    else if (object.getX() > verticalMidpoint) {
       if (topQuadrant) {
         index = 0;
-      }
-      else if (bottomQuadrant) {
+      } else if (bottomQuadrant) {
         index = 3;
       }
     }
@@ -77,11 +75,11 @@ public class QuadTree{
     return index;
   }
 
- /*
+  /*
   * Insert the object into the quadtree. If the node
-  * exceeds the capacity, it will split and add all
-  * objects to their corresponding nodes.
-  */
+   * exceeds the capacity, it will split and add all
+   * objects to their corresponding nodes.
+   */
   public void insert(Collideable object) {
     if (_nodes[0] != null) {
       int index = getIndex(object);
@@ -95,27 +93,26 @@ public class QuadTree{
 
     _objects.add(object);
 
-    if (_objects.size() > _maxObjects && _level < _maxLevels){
-       if (_nodes[0] == null) {
-          split();
-       }
+    if (_objects.size() > _maxObjects && _level < _maxLevels) {
+      if (_nodes[0] == null) {
+        split();
+      }
 
       int i = 0;
       while (i < _objects.size()) {
         int index = getIndex(_objects.get(i));
         if (index != -1) {
           _nodes[index].insert(_objects.remove(i));
-        }
-        else {
+        } else {
           i++;
         }
       }
     }
   }
 
- /*
+  /*
   * Return all objects that could collide with the given object
-  */
+   */
   public List<Collideable> retrieve(List<Collideable> returnObjects, Collideable object) {
     int index = getIndex(object);
     if (index != -1 && _nodes[0] != null) {
@@ -129,12 +126,11 @@ public class QuadTree{
 
 
   // Inserts every Collideable in objects to the QuadTree
-  void insertCollideables( List objects ){
-    for( Object i: objects ){
-      if( i instanceof Collideable ){
+  void insertCollideables( List objects ) {
+    for ( Object i : objects ) {
+      if ( i instanceof Collideable ) {
         insert( (Collideable) i );
       }
     }
   }
-
 }

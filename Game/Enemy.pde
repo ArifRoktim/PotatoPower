@@ -42,8 +42,9 @@ class Enemy implements Collideable {
     _xPos += _dx;
     _yPos += _dy;
     
-    if (dist(_xPos*40, _yPos*40, _target.getX()*40, _target.getY()*40) < 10) { //if you have reached target
+    if (dist(_xPos*40, _yPos*40, _target.getX()*40, _target.getY()*40) < 5) { //if you have reached target
       //print("reached target");
+      
       _dx = _dy = 0;
       Tile up = _map.getUp(_target);
       Tile down = _map.getDown(_target);
@@ -58,14 +59,12 @@ class Enemy implements Collideable {
         _target = left;
       else if (right != null && right.getValue() > _target.getValue())
         _target = right;
-      setMovement();
     }
   }
   
   private void setMovement() {  
     float deltaX = _target.getX() - _xPos;
     float deltaY = _target.getY() - _yPos;
-    float delta = deltaX + deltaY;
     if (_target.getX() < _xPos) {
       _dx = -1*_d;
     } else if (_target.getX() > _xPos) {
@@ -75,6 +74,14 @@ class Enemy implements Collideable {
       _dy = -1*_d;
     } else if (_target.getY() > _yPos) {
       _dy = _d;
+    }
+    
+    if (_dx != 0 && _dy != 0) {
+      if (deltaX > deltaY) {
+        _dy = 0;
+      } else {
+        _dx = 0;
+      }
     }
     
   }

@@ -34,11 +34,11 @@ class Tile implements Drawable {
     switch(_type) {
       case GRASS:
         image(img.grass(), _xPos*dim, _yPos*dim);
-         text(String.valueOf(_value), _xPos*dim + (.5 * dim), _yPos*dim + ( .5 * dim));
+        //text(String.valueOf(_value), _xPos*dim + (.5 * dim), _yPos*dim + ( .5 * dim));
         break;
       case PATH:
         image(img.path(),  _xPos*dim, _yPos*dim);
-         text(String.valueOf(_value), _xPos*dim + (.5 * dim), _yPos*dim + ( .5 * dim));
+        //text(String.valueOf(_value), _xPos*dim + (.5 * dim), _yPos*dim + ( .5 * dim));
         break;
     }
   }
