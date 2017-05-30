@@ -5,13 +5,14 @@ import java.awt.Rectangle;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.ArrayDeque;
+import java.util.Deque;
 
 Map _map;
 ImageStorage img;
 List<Enemy> enemies;
 List<Projectile> projectiles;
 QuadTree _qTree;
-ArrayDeque<Enemy> enemyQueue;
+Deque<Enemy> enemyQueue;
 int lives;
 
 void setup() {
@@ -27,6 +28,8 @@ void setup() {
   for (int i = 0; i < 10; i++)
     enemyQueue.add(new Enemy(_map, img));
   textSize(24);
+  fill(255, 0, 0);
+  noStroke();
 }
 
 void draw() {
@@ -36,9 +39,13 @@ void draw() {
     e.move();
   }
   //TODO: if enemy reaches end, decrease lives
-  if (dist(enemies.peek().getX()*40, _yPos*40, _target.getX()*40, _target.getY()*40) < 5) { //if enemy have reached end
-  
-  //}
+  if (!enemies.isEmpty()) {
+    Enemy first = enemies.get(0);
+    if (dist(first.getX()*40, first.getY()*40, _map.getEnd().getX()*40, _map.getEnd().getY()*40) < 5) { //if enemy have reached end
+      enemies.remove(first);
+      lives--;
+    }
+  }
 
   render();
 }
