@@ -1,0 +1,31 @@
+PotatoPower
+Arif Roktim
+Shakil Rafi
+Alitquan Mallick
+
+ _________  ___   ___   ______       ______   __       ________   ___   __      
+/________/\/__/\ /__/\ /_____/\     /_____/\ /_/\     /_______/\ /__/\ /__/\    
+\__.::.__\/\::\ \\  \ \\::::_\/_    \:::_ \ \\:\ \    \::: _  \ \\::\_\\  \ \   
+   \::\ \   \::\/_\ .\ \\:\/___/\    \:(_) \ \\:\ \    \::(_)  \ \\:. `-\  \ \  
+    \::\ \   \:: ___::\ \\::___\/_    \: ___\/ \:\ \____\:: __  \ \\:. _    \ \ 
+     \::\ \   \: \ \\::\ \\:\____/\    \ \ \    \:\/___/\\:.\ \  \ \\. \`-\  \ \
+      \__\/    \__\/ \::\/ \_____\/     \_\/     \_____\/ \__\/\__\/ \__\/ \__\/
+================================================================================
+
+
+================================================================================
+Plan / Prioritization
+
+================================================================================
+1. Allow towers to shoot projectiles.
+2. Incorporate proper mathematics or employ an algorithm that ensures some of the
+projectiles are able to intersect with the enemy.
+3. Ensure that the Quadtree is able to detect these intersections (aka collisions)
+and enemies lose health according to the instance variables of the projectile.
+4. Ensure that enemies can die.
+5. Ensure that appropriate classes are popped or dequeued from their respective
+data structures after they have died or their usage has expired.
+6. Ensure that the game can be ended.
+7. Fix bugging with the vertical movement and the slight fluctuation in position
+when an enemy has to turn a corner.
+8. Tweaking/Extras: title screen, extra levels, different enemies etc.
