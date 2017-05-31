@@ -62,9 +62,27 @@ class Enemy implements Collideable {
     }
   }
   
-  private void setMovement() {  
+  private void setMovement() {
     float deltaX = _target.getX() - _xPos;
     float deltaY = _target.getY() - _yPos;
+    float h = sqrt(deltaX*deltaX + deltaY*deltaY);
+    
+    /*
+    if (deltaX < 0.01) {
+      _dy = _d*deltaY/abs(deltaY);
+    }
+    else if (deltaY < 0.01) {
+      _dx = _d*deltaX/abs(deltaX);
+    } else {
+      _dx = deltaX*_d/h;
+      _dy = deltaY*_d/h;
+    }
+    println("h: " + h);
+    println("dx: " + _dx);
+    println("dy: " + _dy);
+    */
+    
+    
     if (_target.getX() < _xPos) {
       _dx = -1*_d;
     } else if (_target.getX() > _xPos) {
