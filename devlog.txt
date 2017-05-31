@@ -44,6 +44,10 @@ LESSONS LEARNED
 <Member> :: <Thing member did.>
 ==============================================================
 
+2017-05-30
+--------------------------------------------------------------
+Alitquan Mallick: implemented basic projectile motion, albeit
+calculations to intersect enemies on queue still needed
 2017-05-29
 --------------------------------------------------------------
 Shakil :: Fixed movement and robustified map class
