@@ -37,6 +37,15 @@ class Tower implements Collideable {
     */
   }
   
+  // makes towers launch projectile
+  Projectile shoot(float _speed, float _angle) {
+    /* TO DO
+    //Mathematical computations for intersection
+    */
+    System.out.println("TOWER SHOOTS");
+    return new Projectile (_xPos, _yPos, _speed, _angle,img);
+  }
+  
   // detects and adds nearby enemies within range to queue
   void detect() {
   }

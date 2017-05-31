@@ -11,6 +11,7 @@ Map _map;
 ImageStorage img;
 List<Enemy> enemies;
 List<Projectile> projectiles;
+List<Tower> towers;
 QuadTree _qTree;
 Deque<Enemy> enemyQueue;
 int lives;
@@ -23,6 +24,7 @@ void setup() {
   _map.mapOne();
   enemies = new LinkedList();
   projectiles = new LinkedList();
+  towers = new LinkedList();
   lives = 10;
   enemyQueue = new ArrayDeque<Enemy>();
   for (int i = 0; i < 10; i++)
@@ -34,9 +36,15 @@ void setup() {
 
 void draw() {
   spawn();
-  doCollisions();
+  
+  // COMMENTED OUT TEMPORARILY
+ // doCollisions();
+  
   for ( Enemy e : enemies ) {
     e.move();
+  }
+  for (Projectile p : projectiles) {
+    p.move();
   }
   //TODO: if enemy reaches end, decrease lives
   if (!enemies.isEmpty()) {
@@ -46,7 +54,14 @@ void draw() {
       lives--;
     }
   }
-
+  
+  // PROJECTILE SHOT EVERY RELOAD TIME
+  for (Tower x: towers) {
+    if ((frameCount%(x._reloadTime*60)) == 0) {
+      projectiles.add(x.shoot(.05,60));
+    }
+  }
+  // TO DO: remove projectiles out of range, center projectiles at time of launch
   render();
 }
 
@@ -59,6 +74,9 @@ void render() {
   }
   for ( Projectile p : projectiles ) {
     p.drawObj();
+  }
+  for ( Tower t: towers) {
+    t.drawObj();
   }
   text("Lives: " + lives, 20, 40);
 }
@@ -98,6 +116,7 @@ void mouseClicked() {
     // TODO: Make tile take a tower object as an arguement
     // so that we can add the tower object to _drawables
     Tower newTower = new Tower( x, y, img );
+    towers.add(newTower);
     _map.getTile( x, y ).addTower( newTower );
     println("Added tower");
   }

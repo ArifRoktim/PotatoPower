@@ -1,13 +1,13 @@
 class Projectile implements Collideable {
   int damage;
   float _xPos, _yPos; // x and y coordinates
-  int _rad;
+  int _rad = 4;
   float _dx, _dy; // change in x and y
   float _speed, _angle;
   ImageStorage img;
 
   // shoots depending on angle given by tower
-  Projectile( int x, int y, float _speed, float _angle, ImageStorage nimg) {
+  Projectile( float x, float y, float _speed, float _angle, ImageStorage nimg) {
     _xPos = x;
     _yPos = y;
     _dx = (float) Math.cos(Math.toRadians(_angle)) * _speed;
@@ -17,8 +17,12 @@ class Projectile implements Collideable {
 
   public void drawObj(){
     // temporary image
+    
+    //diagnostics:
+    //System.out.println("xpos = " + _xPos + " ypos = " + _yPos);
+    
     ellipseMode(CORNER);
-    ellipse( _xPos * 40, _yPos * 40, _rad * 2, _rad * 2 );
+    ellipse( _xPos*40 , _yPos*40, _rad * 2, _rad * 2 );
     fill (255,0,0);
   }
 
