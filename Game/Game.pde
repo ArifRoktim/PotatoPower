@@ -95,18 +95,22 @@ void doCollisions() {
   _qTree.clear();
   _qTree.insertCollideables( _enemies );
   _qTree.insertCollideables( _projectiles );
-  List<Collideable> collideables = new LinkedList<Collideable>();
-  // Do collisions from the perspective of the enemy
-  for ( Enemy i : _enemies ) {
-    // Populate collideables with every Collideable that Enemy i could collide with
-    collideables.clear();
-    _qTree.retrieve( collideables, (Collideable) i );
 
-    // Run actual collision detection algorithm between Enemy i and the collideables
-    for ( Collideable j : collideables ) {
-      //
+  List<Collideable> possible = new LinkedList<Collideable>();
+  // Do collisions for projectiles
+  for ( Projectile projectile : _projectiles ) {
+    // Populate list with all Collideables projectile can collide with
+    possible.clear();
+    _qTree.retrieve( possible, (Collideable) projectile );
+
+    // Run actual collision detection algorithm for projectiles
+    for ( Collideable i : possible ) {
+      if( projectile.isColliding( i ) ){
+        //
+      }
     }
   }
+
 }
 
 void mouseClicked() {

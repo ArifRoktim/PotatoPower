@@ -7,6 +7,8 @@ interface Collideable extends Drawable {
 
   public void collide(); //needed?
 
+  public boolean isColliding( Collideable other );
+
   // movement for the projectiles
   public void move();
 

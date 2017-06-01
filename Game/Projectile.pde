@@ -31,6 +31,10 @@ class Projectile implements Collideable {
     _yPos += _dy;
   }
 
+  public boolean isColliding( Collideable other ){
+    return false;
+  }
+
   public void collide(){
 
   }

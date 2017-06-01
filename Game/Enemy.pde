@@ -104,6 +104,10 @@ class Enemy implements Collideable {
     
   }
 
+  public boolean isColliding( Collideable other ){
+    return false;
+  }
+
   public void collide(){
 
   }

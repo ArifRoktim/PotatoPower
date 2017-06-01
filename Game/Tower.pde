@@ -46,8 +46,27 @@ class Tower implements Collideable {
     return new Projectile (_xPos, _yPos, _speed, _angle,img);
   }
   
-  // detects and adds nearby enemies within range to queue
+  /* detects and adds nearby enemies within range to queue 
+   * works by giving towers a large hitbox and detecting if an enemy collides with this hitbox
+   * If so, the enemy is added to the tower's queue of enemies
+   */
   void detect() {
+    // List storing Collideables that could collide with a given Collideable
+    List<Collideable> possible = new LinkedList<Collideable>();
+
+    for ( Tower tower : _towers ) {
+      // Populate list with all Collideables that tower can collide with
+      possible.clear();
+      _qTree.retrieve( possible, (Collideable) tower );
+
+      // Run actual collision detection algorithm
+      for ( Collideable i : possible ) {
+        if( tower.isColliding( i ) ){
+          //
+        }
+      }
+    }
+
   }
   
   // damages enemy at the head of the queue 
@@ -58,6 +77,10 @@ class Tower implements Collideable {
     return img;
   }
   
+  public boolean isColliding( Collideable other ){
+    return false;
+  }
+
   public void collide( Collideable other){
   
   }
