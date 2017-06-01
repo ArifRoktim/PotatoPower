@@ -58,7 +58,9 @@ void draw() {
   // PROJECTILE SHOT EVERY RELOAD TIME
   for (Tower x: _towers) {
     if ((frameCount%(x._reloadTime*60)) == 0) {
-      _projectiles.add(x.shoot(.05,60));
+      Projectile p = x.shoot();
+      if (p != null)
+        _projectiles.add(p);
     }
   }
   // TO DO: remove _projectiles out of range, center _projectiles at time of launch
