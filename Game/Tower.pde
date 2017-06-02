@@ -99,11 +99,6 @@ class Tower implements Collideable {
 
   }
   
-  // movement for the projectiles
-  public void move(){
-    
-  }
-
   public float getX(){
     return _xPos;
   }
