@@ -60,4 +60,10 @@ class Projectile implements Collideable {
   public int getWidth(){
     return 0;
   }
+  public boolean outOfBounds() {
+    if (_xPos<40 && _xPos>-1)
+      if (_yPos<40 && _yPos>-1)
+       return true;
+    return false;
+  }
 }
