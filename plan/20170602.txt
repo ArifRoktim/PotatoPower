@@ -1,0 +1,21 @@
+PotatoPower
+Arif Roktim
+Shakil Rafi
+Alitquan Mallick
+
+ _________  ___   ___   ______       ______   __       ________   ___   __      
+/________/\/__/\ /__/\ /_____/\     /_____/\ /_/\     /_______/\ /__/\ /__/\    
+\__.::.__\/\::\ \\  \ \\::::_\/_    \:::_ \ \\:\ \    \::: _  \ \\::\_\\  \ \   
+   \::\ \   \::\/_\ .\ \\:\/___/\    \:(_) \ \\:\ \    \::(_)  \ \\:. `-\  \ \  
+    \::\ \   \:: ___::\ \\::___\/_    \: ___\/ \:\ \____\:: __  \ \\:. _    \ \ 
+     \::\ \   \: \ \\::\ \\:\____/\    \ \ \    \:\/___/\\:.\ \  \ \\. \`-\  \ \
+      \__\/    \__\/ \::\/ \_____\/     \_\/     \_____\/ \__\/\__\/ \__\/ \__\/
+================================================================================
+
+Plan / Prioritization:
+1. Make towers shoot at enemies
+2. Run collision detection algo
+  a. Make projectiles damage enemies
+  b. Make towers detect enemies in a certain range by giving them large hitboxes
+3. Let user buy upgrades to towers
+4. Let user manually target enemies
