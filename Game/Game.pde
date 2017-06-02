@@ -74,8 +74,14 @@ void render() {
   for ( Enemy e : _enemies ) {
     e.drawObj();
   }
-  for ( Projectile p : _projectiles ) {
-    p.drawObj();
+  for (int i = _projectiles.size() - 1;i > -1;i--) {
+   if (!_projectiles.isEmpty()){
+     if (_projectiles.get(i).outOfBounds()){
+       _projectiles.remove(i);
+     }
+      if (!_projectiles.isEmpty())
+        _projectiles.get(i).drawObj();
+     }
   }
   for ( Tower t: _towers) {
     t.drawObj();
