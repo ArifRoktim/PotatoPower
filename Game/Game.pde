@@ -37,8 +37,8 @@ void setup() {
 void draw() {
   spawn();
   
-  // COMMENTED OUT TEMPORARILY
- // doCollisions();
+  // Add all Collideables to the quadtree
+  doCollisions();
   
   for ( Enemy e : _enemies ) {
     e.move();
@@ -57,6 +57,7 @@ void draw() {
   
   // PROJECTILE SHOT EVERY RELOAD TIME
   for (Tower x: _towers) {
+    x.detect();
     if ((frameCount%(x._reloadTime*60)) == 0) {
       Projectile p = x.shoot();
       if (p != null)
@@ -98,6 +99,7 @@ void doCollisions() {
   _qTree.insertCollideables( _enemies );
   _qTree.insertCollideables( _projectiles );
 
+  /*
   List<Collideable> possible = new LinkedList<Collideable>();
   // Do collisions for projectiles
   for ( Projectile projectile : _projectiles ) {
@@ -112,6 +114,7 @@ void doCollisions() {
       }
     }
   }
+  */
 
 }
 
@@ -121,7 +124,7 @@ void mouseClicked() {
   if ( _map.getTile(x, y).towerPlaceable() ) {
     // TODO: Make tile take a tower object as an arguement
     // so that we can add the tower object to _drawables
-    Tower newTower = new Tower( x, y, _img );
+    Tower newTower = new Tower( x + .5, y + .5, _img );
     _towers.add(newTower);
     _map.getTile( x, y ).addTower( newTower );
     println("Added tower");

@@ -1,7 +1,8 @@
 class Tower implements Collideable {
   
   int _range;// maximum range to detect and shoot at an enemy
-  int _xPos, _yPos, _width, _height; // x-y coordinates, and dimensions for the hitbox
+  float _xPos, _yPos;
+  int _width, _height; // x-y coordinates, and dimensions for the hitbox
   int _reloadTime;// seconds between successive shots
   Queue<Enemy> _enemies; // enemies that towers will target 
   float _angle; // angle that projectile will be launched
@@ -9,8 +10,8 @@ class Tower implements Collideable {
   ImageStorage img;
   final int dim = 40;
   
-  public Tower ( int x, int y, ImageStorage nimg ) {
-    _range = 5;
+  public Tower ( float x, float y, ImageStorage nimg ) {
+    _range = 3;
     _xPos = x;
     _yPos = y;
     _width = _height = 40;
@@ -22,12 +23,15 @@ class Tower implements Collideable {
   }
   
   public void drawObj() {
-    image(img.tower(), _xPos*dim, _yPos*dim, dim, dim);
+    image(img.tower(), _xPos*dim - 20, _yPos*dim - 20, dim, dim);
     pushMatrix();
-    translate(_xPos*dim + dim/2, _yPos*dim + dim/2);
+    translate(_xPos*dim, _yPos*dim );
     rotate(_angle);
     image(img.turret(), -dim/2, -dim/2, dim, dim);
     popMatrix();
+    fill( 0, 0, 0, 50 );
+    ellipseMode( CENTER );
+    ellipse( _xPos*40, _yPos*40, _range*40, _range*40 );
   }
   
   // checks queue to see if enemy at head is dead or out of range
@@ -62,16 +66,12 @@ class Tower implements Collideable {
     // List storing Collideables that could collide with a given Collideable
     List<Collideable> possible = new LinkedList<Collideable>();
 
-    for ( Tower tower : _towers ) {
-      // Populate list with all Collideables that tower can collide with
-      possible.clear();
-      _qTree.retrieve( possible, (Collideable) tower );
+    _qTree.retrieve( possible, this );
 
-      // Run actual collision detection algorithm
-      for ( Collideable i : possible ) {
-        if( tower.isColliding( i ) ){
-          //
-        }
+    // Run actual collision detection algorithm
+    for ( Collideable i : possible ) {
+      if( isColliding( i ) ){
+        System.out.println( i );
       }
     }
 
