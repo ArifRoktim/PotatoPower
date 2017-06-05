@@ -46,6 +46,7 @@ LESSONS LEARNED
 
 2017-06-04
 --------------------------------------------------------------
+Alitquan :: added gameStates, such as a title and an end
 Shakil :: Completed aiming/shooting for towers, fixed projectile movement, and worked on collision detection
 ==============================================================
 

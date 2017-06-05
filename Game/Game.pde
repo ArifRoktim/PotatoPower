@@ -14,11 +14,20 @@ List<Projectile> _projectiles;
 List<Tower> _towers;
 QuadTree _qTree;
 Deque<Enemy> _enemyQueue;
+gameState status;
 int lives;
 boolean running;
+PImage menu;
+PImage loss;
 
 void setup() {
+  status = gameState.TITLE;
+  delay(1000);
   size(600, 600); //15x15 tiles
+  menu = loadImage("title.jpg");
+  loss = loadImage("loser.jpg");
+  image(menu,0,0,width,height);
+  titleScreen();
   _qTree = new QuadTree( 0, new Rectangle( 0, 0, width, height) );
   _img = new ImageStorage();
   _map = new Map(_img);
@@ -38,6 +47,9 @@ void setup() {
 }
 
 void draw() {
+  if (status == gameState.TITLE){
+  }
+  else if (status == gameState.GAMEPLAY) {
   spawn();
   
   for ( Enemy e : _enemies ) {
@@ -81,6 +93,13 @@ void draw() {
   }
   
   render();
+  if (lives <= 0) {
+    status = gameState.END;
+  }
+  }
+  else if (status == gameState.END) {
+    endScreen();
+  }
 }
 
 // Clear screen and redraw every Drawable
@@ -148,7 +167,10 @@ void mouseClicked() {
 }
 
 void keyPressed() {
-  if (key == ' ') {
+  if (key == 's' && status== gameState.TITLE) {
+    status = gameState.GAMEPLAY;
+  }
+  else if (key == ' ') {
     if (running) {
       running = false;
       noLoop();
@@ -158,3 +180,24 @@ void keyPressed() {
     }
   }
 }
+
+void titleScreen() {
+  textSize(80);
+  textAlign(CENTER);
+  text("potatoPower",300,100);
+  textSize(40);
+  textAlign(RIGHT);
+  text("the official game",400,200);
+  textSize(20);
+  textAlign(CENTER);
+  text("Press s to start the game",400,300);
+  keyPressed();
+}
+
+void endScreen() {
+  image(loss,0,0,width,height);
+  textSize(40);
+  textAlign(RIGHT);
+  text("YOU LOSE",400,200);
+}
+  
