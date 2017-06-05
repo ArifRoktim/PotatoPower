@@ -2,16 +2,24 @@ class Projectile implements Collideable {
   int damage;
   float _xPos, _yPos; // x and y coordinates
   int _rad = 4;
-  float _dx, _dy; // change in x and y
+  double _dx, _dy; // change in x and y
   float _speed, _angle;
   ImageStorage img;
 
   // shoots depending on angle given by tower
-  Projectile( float x, float y, float _speed, float _angle, ImageStorage nimg) {
+  Projectile( float x, float y, double _speed, float _angle, ImageStorage nimg) {
     _xPos = x;
     _yPos = y;
-    _dx = (float) Math.sin(_angle) * _speed;
-    _dy = (float) Math.cos(_angle) * _speed;
+    if (_angle > 0 && _angle < PI/2) {
+    } else if (_angle > PI/2 && _angle < PI) {
+      
+    } else if (_angle > PI && _angle < 3*PI/2) {
+      
+    } else if (_angle > 0 && _angle < PI/2) {
+      
+    }
+    _dx = cos(_angle) * _speed;
+    _dy = sin(_angle) * _speed;
     img = nimg;
   }
 
@@ -21,9 +29,9 @@ class Projectile implements Collideable {
     //diagnostics:
     //System.out.println("xpos = " + _xPos + " ypos = " + _yPos);
     
-    ellipseMode(CORNER);
+    fill (0);
+    ellipseMode(CENTER);
     ellipse( _xPos*40 , _yPos*40, _rad * 2, _rad * 2 );
-    fill (255,0,0);
   }
 
   public void move(){
@@ -61,9 +69,6 @@ class Projectile implements Collideable {
     return 0;
   }
   public boolean outOfBounds() {
-    if (_xPos<40 && _xPos>-1)
-      if (_yPos<40 && _yPos>-1)
-       return true;
-    return false;
+    return _xPos < 0 || _xPos > 15 || _xPos < 0 || _xPos > 15;
   }
 }

@@ -15,6 +15,7 @@ List<Tower> _towers;
 QuadTree _qTree;
 Deque<Enemy> _enemyQueue;
 int lives;
+boolean running;
 
 void setup() {
   size(600, 600); //15x15 tiles
@@ -60,6 +61,8 @@ void draw() {
   
   for (int i = _projectiles.size() - 1; i > -1; i--) {
      if (_projectiles.get(i).outOfBounds()){
+       Projectile p = _projectiles.get(i);
+       //println("removed projectile: " + p.getX() + ", " + p.getY());
        _projectiles.remove(i);
      }
   }
@@ -68,13 +71,15 @@ void draw() {
   for (Tower x: _towers) {
     x.detect();
     x.aim();
-    if ((frameCount%(x._reloadTime*60)) == 0) {
+    if ((frameCount % (int)(x._reloadTime*60)) == 0) {
       Projectile p = x.shoot();
-      if (p != null)
+      if (p != null) {
         _projectiles.add(p);
+        println("dx: " + p._dx + " dy: " + p._dy);
+      }
     }
   }
-  // TO DO: remove _projectiles out of range, center _projectiles at time of launch
+  
   render();
 }
 
@@ -139,5 +144,17 @@ void mouseClicked() {
     _towers.add(newTower);
     _map.getTile( x, y ).addTower( newTower );
     println("Added tower");
+  }
+}
+
+void keyPressed() {
+  if (key == ' ') {
+    if (running) {
+      running = false;
+      noLoop();
+    } else {
+      running = true;
+      loop();
+    }
   }
 }

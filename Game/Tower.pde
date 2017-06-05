@@ -6,7 +6,7 @@ class Tower implements Collideable {
   float _reloadTime;// seconds between successive shots
   Queue<Enemy> _enemies; // enemies that towers will target 
   float _angle; // angle that projectile will be launched
-  float _speed;
+  double _speed;
   ImageStorage img;
   final int dim = 40;
   
@@ -15,7 +15,7 @@ class Tower implements Collideable {
     _xPos = x;
     _yPos = y;
     _width = _height = 40;
-    _reloadTime = 0.5;
+    _reloadTime = 1;
     _speed = 1;
     _enemies = new LinkedList<Enemy>();
     _angle = 0;
@@ -34,7 +34,7 @@ class Tower implements Collideable {
     //draw range
     fill( 0, 0, 0, 50 );
     ellipseMode( CENTER );
-    ellipse( _xPos*40, _yPos*40, _range*40*2, _range*40*2);
+    //ellipse( _xPos*40, _yPos*40, _range*40*2, _range*40*2);
   }
   
   // checks queue to see if enemy at head is dead or out of range
@@ -56,7 +56,7 @@ class Tower implements Collideable {
     if (_enemies.isEmpty())
       return null;
     aim();
-    return new Projectile (_xPos + 0.5, _yPos + 0.5, _speed, _angle, img);
+    return new Projectile (_xPos, _yPos, _speed, _angle, img);
   }
   
   void aim() {
@@ -68,14 +68,19 @@ class Tower implements Collideable {
     float deltaX = target.getX() - _xPos;
     float deltaY = target.getY() - _yPos;
     if (deltaX > 0 && deltaY > 0) { //first quadrant
-      _angle = atan(deltaX/deltaY);
+      _angle = atan(deltaY/deltaX);
     } else if (deltaX < 0 && deltaY > 0) { //second quadrant
-      _angle = atan(deltaX/deltaY) + PI/2;
+      _angle = atan(deltaY/deltaX) + PI;
     } else if (deltaX < 0 && deltaY < 0) { //third quadrant
-      _angle = atan(deltaX/deltaY) + PI;
+      _angle = atan(deltaY/deltaX) + PI;
     } else if (deltaX > 0 && deltaY < 0) { //fourth quadrant
-      _angle = atan(deltaX/deltaY) + 3*PI/2;
+      _angle = atan(deltaY/deltaX);
     }
+    
+    if (_angle < 0) {
+      _angle += 2*PI;
+    }
+    //println("angle: " + _angle);
   }
   
   /* detects and adds nearby enemies within range to queue 
