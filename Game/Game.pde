@@ -43,10 +43,13 @@ void setup() {
   fill(255, 0, 0);
   noStroke();
   //speedup for development
-  frameRate(120);
+  frameRate(60);
 }
 
 void draw() {
+  // Add all Collideables to the quadtree
+  popQuadTree();
+
   if (status == gameState.TITLE){
   }
   else if (status == gameState.GAMEPLAY) {
@@ -59,8 +62,6 @@ void draw() {
     p.move();
   }
   
-  // Add all Collideables to the quadtree
-  doCollisions();
   
   //if enemy reaches end, decrease lives
   if (!_enemies.isEmpty()) {
@@ -70,6 +71,24 @@ void draw() {
       lives--;
     }
   }
+  
+  /* TODO: Fix bugged Enemy.isColliding() method
+  // Do enemy and projectile collisions
+  List<Collideable> probable = new LinkedList<Collideable>();
+  for( int i = _enemies.size() - 1; i >= 0; i-- ){
+    _qTree.retrieve( probable, _enemies.get(i) );
+    for(Collideable e: probable){
+      if( e instanceof Projectile && _enemies.get(i).isColliding(e) ){
+        _enemies.get(i)._hp -= ( (Projectile) e ).damage;
+        _projectiles.remove( e );
+      }
+      if( ! _enemies.get(i).isAlive() ){
+        //_enemies.remove(i);
+      }
+    }
+
+  }
+  */
   
   for (int i = _projectiles.size() - 1; i > -1; i--) {
      if (_projectiles.get(i).outOfBounds()){
@@ -87,7 +106,7 @@ void draw() {
       Projectile p = x.shoot();
       if (p != null) {
         _projectiles.add(p);
-        println("dx: " + p._dx + " dy: " + p._dy);
+        //println("dx: " + p._dx + " dy: " + p._dy);
       }
     }
   }
@@ -128,28 +147,11 @@ void spawn() {
   }
 }
 
-void doCollisions() {
+void popQuadTree() {
   // Clear and repopulate QuadTree
   _qTree.clear();
   _qTree.insertCollideables( _enemies );
   _qTree.insertCollideables( _projectiles );
-
-  /*
-  List<Collideable> possible = new LinkedList<Collideable>();
-  // Do collisions for projectiles
-  for ( Projectile projectile : _projectiles ) {
-    // Populate list with all Collideables projectile can collide with
-    possible.clear();
-    _qTree.retrieve( possible, (Collideable) projectile );
-
-    // Run actual collision detection algorithm for projectiles
-    for ( Collideable i : possible ) {
-      if( projectile.isColliding( i ) ){
-        //
-      }
-    }
-  }
-  */
 
 }
 
