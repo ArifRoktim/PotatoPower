@@ -1,0 +1,5 @@
+enum ButtonType {
+  PLAY,
+  FASTFORWARD_ON,
+  FASTFORWARD_OFF
+}

@@ -97,8 +97,8 @@ class Tower implements Collideable {
         _enemies.add( (Enemy) e);
       }
     }
-    if (mousePressed)
-      println(possible + " " + _enemies);
+    //if (mousePressed)
+      //println(possible + " " + _enemies);
 
     /*
     // Run actual collision detection algorithm
