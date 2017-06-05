@@ -47,16 +47,23 @@ public class QuadTree {
    */
   private int getIndex(Collideable object) {
     int index = -1;
+    float w, h;
+    if (object instanceof Tower) {
+      w = h = ((Tower) object).getRange()*2;
+    } else {
+      w = object.getWidth();
+      h = object.getHeight();
+    }
     double verticalMidpoint = _bounds.getX() + (_bounds.getWidth() / 2);
     double horizontalMidpoint = _bounds.getY() + (_bounds.getHeight() / 2);
 
     // Object can completely fit within the top quadrants
-    boolean topQuadrant = (object.getY() < horizontalMidpoint && object.getY() + object.getHeight() < horizontalMidpoint);
+    boolean topQuadrant = (object.getY() < horizontalMidpoint && object.getY() + h < horizontalMidpoint);
     // Object can completely fit within the bottom quadrants
     boolean bottomQuadrant = (object.getY() > horizontalMidpoint);
 
     // Object can completely fit within the left quadrants
-    if (object.getX() < verticalMidpoint && object.getX() + object.getWidth() < verticalMidpoint) {
+    if (object.getX() < verticalMidpoint && object.getX() + w < verticalMidpoint) {
       if (topQuadrant) {
         index = 1;
       } else if (bottomQuadrant) {
@@ -123,7 +130,6 @@ public class QuadTree {
 
     return returnObjects;
   }
-
 
   // Inserts every Collideable in objects to the QuadTree
   void insertCollideables( List objects ) {

@@ -3,7 +3,7 @@ class Tower implements Collideable {
   int _range;// maximum range to detect and shoot at an enemy
   float _xPos, _yPos;
   int _width, _height; // x-y coordinates, and dimensions for the hitbox
-  int _reloadTime;// seconds between successive shots
+  float _reloadTime;// seconds between successive shots
   Queue<Enemy> _enemies; // enemies that towers will target 
   float _angle; // angle that projectile will be launched
   float _speed;
@@ -15,8 +15,8 @@ class Tower implements Collideable {
     _xPos = x;
     _yPos = y;
     _width = _height = 40;
-    _reloadTime = 1;
-    _speed = 5;
+    _reloadTime = 0.5;
+    _speed = 1;
     _enemies = new LinkedList<Enemy>();
     _angle = 0;
     img = nimg;
@@ -29,18 +29,23 @@ class Tower implements Collideable {
     rotate(_angle);
     image(img.turret(), -dim/2, -dim/2, dim, dim);
     popMatrix();
+    Enemy t = _enemies.peek();
+    
+    //draw range
     fill( 0, 0, 0, 50 );
     ellipseMode( CENTER );
-    ellipse( _xPos*40, _yPos*40, _range*40, _range*40 );
+    ellipse( _xPos*40, _yPos*40, _range*40*2, _range*40*2);
   }
   
   // checks queue to see if enemy at head is dead or out of range
   void cheque() {
+    if (_enemies.isEmpty()) {
+      //println("no enemies to check");
+      return;
+    }
+    //println("checking");
     Enemy front = _enemies.peek();
-    if (! front.isAlive()) 
-      _enemies.remove();
-    
-    while (isColliding(front)) { //enemy is out of range
+    while (front != null && (!isColliding(front) || !front.isAlive())) { //enemy is out of range
       _enemies.remove();
       front = _enemies.peek();
     }
@@ -50,12 +55,27 @@ class Tower implements Collideable {
   Projectile shoot() {
     if (_enemies.isEmpty())
       return null;
+    aim();
+    return new Projectile (_xPos + 0.5, _yPos + 0.5, _speed, _angle, img);
+  }
+  
+  void aim() {
+    cheque();
+    if (_enemies.isEmpty())
+      return;
     //System.out.println("TOWER SHOOTS");
     Enemy target = _enemies.peek();
-    float deltaX = target.getX();
-    float deltaY = target.getY();
-    _angle = acos(deltaX/deltaY);
-    return new Projectile (_xPos + 0.5, _yPos + 0.5, _speed, _angle, img);
+    float deltaX = target.getX() - _xPos;
+    float deltaY = target.getY() - _yPos;
+    if (deltaX > 0 && deltaY > 0) { //first quadrant
+      _angle = atan(deltaX/deltaY);
+    } else if (deltaX < 0 && deltaY > 0) { //second quadrant
+      _angle = atan(deltaX/deltaY) + PI/2;
+    } else if (deltaX < 0 && deltaY < 0) { //third quadrant
+      _angle = atan(deltaX/deltaY) + PI;
+    } else if (deltaX > 0 && deltaY < 0) { //fourth quadrant
+      _angle = atan(deltaX/deltaY) + 3*PI/2;
+    }
   }
   
   /* detects and adds nearby enemies within range to queue 
@@ -65,15 +85,24 @@ class Tower implements Collideable {
   void detect() {
     // List storing Collideables that could collide with a given Collideable
     List<Collideable> possible = new LinkedList<Collideable>();
-
     _qTree.retrieve( possible, this );
+    
+    for (Collideable e : possible) {
+      if (e instanceof Enemy && !_enemies.contains(e) && isColliding(e)) {
+        _enemies.add( (Enemy) e);
+      }
+    }
+    if (mousePressed)
+      println(possible + " " + _enemies);
 
+    /*
     // Run actual collision detection algorithm
     for ( Collideable i : possible ) {
       if( isColliding( i ) ){
         System.out.println( i );
       }
     }
+    */
 
   }
   
@@ -83,10 +112,10 @@ class Tower implements Collideable {
   
   public boolean isColliding( Collideable other ) {
     float x1 = _xPos*40;
-    float y1 = _xPos*40;
+    float y1 = _yPos*40;
     float x2 = other.getX()*40;
     float y2 = other.getY()*40;
-    float r1 = _width/2;
+    float r1 = _range*40;
     float r2 = other.getWidth()/2;
     return dist(x1, y1, x2, y2) <= r1 + r2;
   }
@@ -115,4 +144,7 @@ class Tower implements Collideable {
     return _height;
   }
 
+  public float getRange() {
+    return _range;
+  }
 }

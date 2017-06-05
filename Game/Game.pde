@@ -27,18 +27,17 @@ void setup() {
   _towers = new LinkedList();
   lives = 10;
   _enemyQueue = new ArrayDeque<Enemy>();
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < 50; i++)
     _enemyQueue.add(new Enemy(_map, _img));
   textSize(24);
   fill(255, 0, 0);
   noStroke();
+  //speedup for development
+  frameRate(120);
 }
 
 void draw() {
   spawn();
-  
-  // Add all Collideables to the quadtree
-  doCollisions();
   
   for ( Enemy e : _enemies ) {
     e.move();
@@ -46,18 +45,29 @@ void draw() {
   for (Projectile p : _projectiles) {
     p.move();
   }
-  //TODO: if enemy reaches end, decrease lives
+  
+  // Add all Collideables to the quadtree
+  doCollisions();
+  
+  //if enemy reaches end, decrease lives
   if (!_enemies.isEmpty()) {
     Enemy first = _enemies.get(0);
-    if (dist(first.getX()*40, first.getY()*40, _map.getEnd().getX()*40, _map.getEnd().getY()*40) < 5) { //if enemy have reached end
+    if (dist(first.getX()*40, first.getY()*40, _map.getEnd().getX()*40 + 20, _map.getEnd().getY()*40 + 20) < 5) {
       _enemies.remove(first);
       lives--;
     }
   }
   
+  for (int i = _projectiles.size() - 1; i > -1; i--) {
+     if (_projectiles.get(i).outOfBounds()){
+       _projectiles.remove(i);
+     }
+  }
+  
   // PROJECTILE SHOT EVERY RELOAD TIME
   for (Tower x: _towers) {
     x.detect();
+    x.aim();
     if ((frameCount%(x._reloadTime*60)) == 0) {
       Projectile p = x.shoot();
       if (p != null)
@@ -75,18 +85,13 @@ void render() {
   for ( Enemy e : _enemies ) {
     e.drawObj();
   }
-  for (int i = _projectiles.size() - 1;i > -1;i--) {
-   if (!_projectiles.isEmpty()){
-     if (_projectiles.get(i).outOfBounds()){
-       _projectiles.remove(i);
-     }
-      if (!_projectiles.isEmpty())
-        _projectiles.get(i).drawObj();
-     }
+  for (Projectile p : _projectiles) {
+    p.drawObj();
   }
-  for ( Tower t: _towers) {
+  for (Tower t : _towers) {
     t.drawObj();
   }
+  fill(0);
   text("Lives: " + lives, 20, 40);
 }
 

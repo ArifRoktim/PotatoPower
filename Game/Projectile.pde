@@ -10,8 +10,8 @@ class Projectile implements Collideable {
   Projectile( float x, float y, float _speed, float _angle, ImageStorage nimg) {
     _xPos = x;
     _yPos = y;
-    _dx = (float) Math.cos(Math.toRadians(_angle)) * _speed;
-    _dy = (float) Math.sin(Math.toRadians(_angle)) * _speed;
+    _dx = (float) Math.sin(_angle) * _speed;
+    _dy = (float) Math.cos(_angle) * _speed;
     img = nimg;
   }
 

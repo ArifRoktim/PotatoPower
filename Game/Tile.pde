@@ -2,7 +2,7 @@
 class Tile implements Drawable {
   
   TileType _type; // can be either PATH or GRASS
-  int _xPos, _yPos, _value; // x and y coordinates
+  int _xPos, _yPos, _value;
   Drawable _tower;
   final int dim = 40;
   ImageStorage img;

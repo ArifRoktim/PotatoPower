@@ -14,11 +14,11 @@ class Enemy implements Collideable {
 
   Enemy( Map theMap, ImageStorage nimg) {
     _hp = 100;
-    _rad = 20; // TODO: replace 20 with half the width/height of a Tile
+    _rad = 18; // TODO: replace 20 with half the width/height of a Tile
     img = nimg;
     // the initial _xPos and _yPos are dependant on the Map
-    _xPos = theMap.getStart().getX();
-    _yPos = theMap.getStart().getY();
+    _xPos = theMap.getStart().getX() + 0.5;
+    _yPos = theMap.getStart().getY() + 0.5;
     _map = theMap;
     _d = .05;
     _target = _map.getTile((int)_xPos, (int)_yPos);
@@ -31,7 +31,8 @@ class Enemy implements Collideable {
 
   public void drawObj(){ 
     ellipseMode(CORNER);
-    ellipse( _xPos * 40, _yPos * 40, _rad * 2, _rad * 2 );
+    fill(255, 0, 0);
+    ellipse( _xPos * 40 - 20, _yPos * 40 - 20, _rad * 2, _rad * 2 );
     //System.out.println(printInfo());
     //System.out.println( _xPos + " " + _yPos + " " + _rad * 2 );
   }
@@ -42,7 +43,7 @@ class Enemy implements Collideable {
     _xPos += _dx;
     _yPos += _dy;
     
-    if (dist(_xPos*40, _yPos*40, _target.getX()*40, _target.getY()*40) < 5) { //if you have reached target
+    if (dist(_xPos*40, _yPos*40, _target.getX()*40 + 20, _target.getY()*40 + 20) < 5) { //if you have reached target
       //print("reached target");
       
       _dx = _dy = 0;
@@ -63,8 +64,8 @@ class Enemy implements Collideable {
   }
   
   private void setMovement() {
-    float deltaX = _target.getX() - _xPos;
-    float deltaY = _target.getY() - _yPos;
+    float deltaX = _target.getX() + 0.5 - _xPos;
+    float deltaY = _target.getY() + 0.5 - _yPos;
     float h = sqrt(deltaX*deltaX + deltaY*deltaY);
     
     /*
@@ -83,14 +84,14 @@ class Enemy implements Collideable {
     */
     
     
-    if (_target.getX() < _xPos) {
+    if (_target.getX() + 0.5 < _xPos) {
       _dx = -1*_d;
-    } else if (_target.getX() > _xPos) {
+    } else if (_target.getX() + 0.5 > _xPos) {
       _dx = _d;
     }
-    if (_target.getY() < _yPos) {
+    if (_target.getY() + 0.5 < _yPos) {
       _dy = -1*_d;
-    } else if (_target.getY() > _yPos) {
+    } else if (_target.getY() + 0.5 > _yPos) {
       _dy = _d;
     }
     
@@ -132,6 +133,13 @@ class Enemy implements Collideable {
   }
   public int getHeight(){
     return _rad * 2;
+  }
+  
+  String toString() {
+    String ret = "";
+    ret += "X: " + _xPos;
+    ret += " Y: " + _yPos;
+    return ret;
   }
   
   // prints information about the surrounding tiles
