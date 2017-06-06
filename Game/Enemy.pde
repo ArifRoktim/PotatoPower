@@ -111,7 +111,7 @@ class Enemy implements Collideable {
     float y1 = _yPos*40;
     float x2 = other.getX()*40;
     float y2 = other.getY()*40;
-    float r1 = _rad*40;
+    float r1 = _rad;
     float r2 = other.getWidth()/2;
     return dist(x1, y1, x2, y2) <= r1 + r2;
   }

@@ -18,7 +18,7 @@ class Tower implements Collideable {
     _yPos = y;
     _width = _height = 40;
     _reloadTime = 1;
-    _speed = 0.2;
+    _speed = 0.1;
     _enemies = new LinkedList<Enemy>();
     _angle = 0;
     _atk = 10;
