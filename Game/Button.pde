@@ -50,13 +50,13 @@ class Button implements Drawable {
     tint(255, 150);
     switch (_type) {
       case PLAY:
-        image(img.play(), x, y);
+        image(img.play(), x, y, 40, 40 );
         break;
       case FASTFORWARD_ON:
-        image(img.fast(), x, y);
+        image(img.fast(), x, y, 40, 40 );
         break;
       case FASTFORWARD_OFF:
-        image(img.slow(), x, y);
+        image(img.slow(), x, y, 40, 40 );
         break;
       case ATTACK:
         image(img.attack(), x, y);
@@ -74,7 +74,7 @@ class Button implements Drawable {
   void action() {
     switch (_type) {
       case PLAY:
-        running = true;
+        status = GameState.GAMEPLAY;
         setType(ButtonType.FASTFORWARD_ON);
         break;
       case FASTFORWARD_ON:

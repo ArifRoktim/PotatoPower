@@ -62,8 +62,9 @@ void draw() {
 
   if (status == GameState.TITLE){
   }
-  else if (status == GameState.GAMEPLAY) {
-    spawn();
+  else if (status == GameState.GAMEPLAY || status == GameState.WAITING ) {
+    if( status == GameState.GAMEPLAY )
+      spawn();
 
     for ( Enemy e : _enemies ) {
       e.move();
@@ -97,6 +98,7 @@ void draw() {
           }
           if( ! _enemies.get(i).isAlive() ){
             _enemies.remove(i);
+            money += 5;
           }
         }
       }
@@ -194,9 +196,12 @@ void mouseClicked() {
       rangeBtn.action();
       println("I done an upgrade!");
       return;
+    } else {
+      showUpgrades = false;
+      atkBtn.getTarget().setShowRange(false);
     }
   }
-  if ( atMouse.towerPlaceable() ) {
+  else if ( atMouse.towerPlaceable() ) {
     if( money >= 20 ){
       Tower newTower = new Tower( x + .5, y + .5, _img );
       _towers.add(newTower);
@@ -223,7 +228,7 @@ void mouseClicked() {
 
 void keyPressed() {
   if (key == 's' && status== GameState.TITLE) {
-    status = GameState.GAMEPLAY;
+    status = GameState.WAITING;
   }
   else if (key == ' ') {
     if (running) {
