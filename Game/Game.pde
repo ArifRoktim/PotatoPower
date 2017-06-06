@@ -47,7 +47,7 @@ void setup() {
   textSize(24);
   fill(255, 0, 0);
   noStroke();
-  playBtn = new Button(520, 20, ButtonType.PLAY, null, _img);
+  playBtn = new Button(520, 40, ButtonType.PLAY, null, _img);
   atkBtn = new Button(0, 0, ButtonType.ATTACK, null, _img);
   reloadBtn = new Button(0, 0, ButtonType.RELOAD, null, _img);
   rangeBtn = new Button(0, 0, ButtonType.RANGE, null, _img);
@@ -162,8 +162,8 @@ void render() {
 
 // Spawn enemy at the starting coordinates
 void spawn() {
-  // Spawn enemy every 2 seconds
-  if (frameCount % (2 * 60) == 0 && !_enemyQueue.isEmpty()) {
+  // Randomly spawn enemy every .5 seconds
+  if (Math.random() > 0.5 && frameCount % (30) == 0 && !_enemyQueue.isEmpty()) {
     //System.out.println( frameCount );
     _enemies.add( _enemyQueue.remove() );
   }
