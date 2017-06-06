@@ -7,6 +7,8 @@ class Tower implements Collideable {
   Queue<Enemy> _enemies; // enemies that towers will target 
   float _angle; // angle that projectile will be launched
   double _speed;
+  float _atk;
+  boolean showRange;
   ImageStorage img;
   final int dim = 40;
   
@@ -19,7 +21,9 @@ class Tower implements Collideable {
     _speed = 1;
     _enemies = new LinkedList<Enemy>();
     _angle = 0;
+    _atk = 10;
     img = nimg;
+    showRange = false;
   }
   
   public void drawObj() {
@@ -34,7 +38,9 @@ class Tower implements Collideable {
     //draw range
     fill( 0, 0, 0, 50 );
     ellipseMode( CENTER );
-    //ellipse( _xPos*40, _yPos*40, _range*40*2, _range*40*2);
+    if (showRange) {
+      ellipse( _xPos*40, _yPos*40, _range*40*2, _range*40*2);
+    }
   }
   
   // checks queue to see if enemy at head is dead or out of range
@@ -124,6 +130,18 @@ class Tower implements Collideable {
     float r2 = other.getWidth()/2;
     return dist(x1, y1, x2, y2) <= r1 + r2;
   }
+  
+  void increaseAttack() {
+    _atk += 3;
+  }
+  
+  void increaseRange() {
+    _range += 0.5;
+  }
+  
+  void increaseReload() {
+    _reloadTime -= 0.1;
+  }
 
   public void collide( Collideable other){
   
@@ -151,5 +169,9 @@ class Tower implements Collideable {
 
   public float getRange() {
     return _range;
+  }
+  
+  public void setShowRange(boolean s) {
+    showRange = s;
   }
 }

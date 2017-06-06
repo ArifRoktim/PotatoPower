@@ -3,7 +3,7 @@ class Tile implements Drawable {
   
   TileType _type; // can be either PATH or GRASS
   int _xPos, _yPos, _value;
-  Drawable _tower;
+  Tower _tower;
   final int dim = 40;
   ImageStorage img;
   
@@ -55,7 +55,7 @@ class Tile implements Drawable {
     _tower = tower;
   }
   
-  Drawable getTower() {
+  Tower getTower() {
     return _tower;
   }
 
@@ -69,6 +69,10 @@ class Tile implements Drawable {
   
   int getY() {
     return _yPos;
+  }
+  
+  TileType getType() {
+    return _type;
   }
 
 }

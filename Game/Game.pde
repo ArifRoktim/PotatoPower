@@ -14,14 +14,19 @@ List<Projectile> _projectiles;
 List<Tower> _towers;
 QuadTree _qTree;
 Deque<Enemy> _enemyQueue;
-gameState status;
+GameState status;
 int lives;
 boolean running;
 PImage menu;
 PImage loss;
+Button playBtn;
+Button atkBtn;
+Button reloadBtn;
+Button rangeBtn;
+boolean showUpgrades;
 
 void setup() {
-  status = gameState.TITLE;
+  status = GameState.TITLE;
   delay(1000);
   size(600, 600); //15x15 tiles
   menu = loadImage("title.jpg");
@@ -35,24 +40,29 @@ void setup() {
   _enemies = new LinkedList();
   _projectiles = new LinkedList();
   _towers = new LinkedList();
-  lives = 10;
+  lives = 50;
   _enemyQueue = new ArrayDeque<Enemy>();
   for (int i = 0; i < 50; i++)
     _enemyQueue.add(new Enemy(_map, _img));
   textSize(24);
   fill(255, 0, 0);
   noStroke();
+  playBtn = new Button(520, 20, ButtonType.PLAY, null, _img);
+  atkBtn = new Button(0, 0, ButtonType.ATTACK, null, _img);
+  reloadBtn = new Button(0, 0, ButtonType.RELOAD, null, _img);
+  rangeBtn = new Button(0, 0, ButtonType.RANGE, null, _img);
+  showUpgrades = false;
   //speedup for development
-  frameRate(60);
+  //frameRate(120);
 }
 
 void draw() {
   // Add all Collideables to the quadtree
   popQuadTree();
 
-  if (status == gameState.TITLE){
+  if (status == GameState.TITLE){
   }
-  else if (status == gameState.GAMEPLAY) {
+  else if (status == GameState.GAMEPLAY) {
   spawn();
   
   for ( Enemy e : _enemies ) {
@@ -113,10 +123,10 @@ void draw() {
   
   render();
   if (lives <= 0) {
-    status = gameState.END;
+    status = GameState.END;
   }
   }
-  else if (status == gameState.END) {
+  else if (status == GameState.END) {
     endScreen();
   }
 }
@@ -135,7 +145,13 @@ void render() {
     t.drawObj();
   }
   fill(0);
-  text("Lives: " + lives, 20, 40);
+  text("Lives: " + lives, 80, 40);
+  playBtn.drawObj();
+  if (showUpgrades) {
+    atkBtn.drawObj();
+    reloadBtn.drawObj();
+    rangeBtn.drawObj();
+  }
 }
 
 // Spawn enemy at the starting coordinates
@@ -158,19 +174,32 @@ void popQuadTree() {
 void mouseClicked() {
   int x = mouseX / 40;
   int y = mouseY / 40;
-  if ( _map.getTile(x, y).towerPlaceable() ) {
+  Tile atMouse = _map.getTile(x, y);
+  if ( atMouse.towerPlaceable() ) {
     // TODO: Make tile take a tower object as an arguement
     // so that we can add the tower object to _drawables
     Tower newTower = new Tower( x + .5, y + .5, _img );
     _towers.add(newTower);
-    _map.getTile( x, y ).addTower( newTower );
+    atMouse.addTower( newTower );
     println("Added tower");
+  } else if (_map.getTile(x, y).getType() == TileType.GRASS) {
+    if (showUpgrades) {
+      showUpgrades = false;
+      atkBtn.getTarget().setShowRange(false);
+    }
+    showUpgrades = true;
+    atkBtn.setTarget(atMouse.getTower());
+    rangeBtn.setTarget(atMouse.getTower());
+    reloadBtn.setTarget(atMouse.getTower());
+  } else if (showUpgrades) {
+    showUpgrades = false;
+    atkBtn.getTarget().setShowRange(false);
   }
 }
 
 void keyPressed() {
-  if (key == 's' && status== gameState.TITLE) {
-    status = gameState.GAMEPLAY;
+  if (key == 's' && status== GameState.TITLE) {
+    status = GameState.GAMEPLAY;
   }
   else if (key == ' ') {
     if (running) {

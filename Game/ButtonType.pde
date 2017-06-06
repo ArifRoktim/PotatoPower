@@ -1,5 +1,8 @@
 enum ButtonType {
   PLAY,
   FASTFORWARD_ON,
-  FASTFORWARD_OFF
+  FASTFORWARD_OFF,
+  ATTACK,
+  RANGE,
+  RELOAD
 }
