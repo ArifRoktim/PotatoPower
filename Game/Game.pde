@@ -14,14 +14,14 @@ List<Projectile> _projectiles;
 List<Tower> _towers;
 QuadTree _qTree;
 Deque<Enemy> _enemyQueue;
-gameState status;
+GameState status;
 int lives;
 boolean running;
 PImage menu;
 PImage loss;
 
 void setup() {
-  status = gameState.TITLE;
+  status = GameState.TITLE;
   delay(1000);
   size(600, 600); //15x15 tiles
   menu = loadImage("title.jpg");
@@ -50,9 +50,9 @@ void draw() {
   // Add all Collideables to the quadtree
   popQuadTree();
 
-  if (status == gameState.TITLE){
+  if (status == GameState.TITLE){
   }
-  else if (status == gameState.GAMEPLAY) {
+  else if (status == GameState.GAMEPLAY) {
   spawn();
   
   for ( Enemy e : _enemies ) {
@@ -113,10 +113,10 @@ void draw() {
   
   render();
   if (lives <= 0) {
-    status = gameState.END;
+    status = GameState.END;
   }
   }
-  else if (status == gameState.END) {
+  else if (status == GameState.END) {
     endScreen();
   }
 }
@@ -169,8 +169,8 @@ void mouseClicked() {
 }
 
 void keyPressed() {
-  if (key == 's' && status== gameState.TITLE) {
-    status = gameState.GAMEPLAY;
+  if (key == 's' && status== GameState.TITLE) {
+    status = GameState.GAMEPLAY;
   }
   else if (key == ' ') {
     if (running) {
