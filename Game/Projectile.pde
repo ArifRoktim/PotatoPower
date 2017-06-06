@@ -21,6 +21,7 @@ class Projectile implements Collideable {
     _dx = cos(_angle) * _speed;
     _dy = sin(_angle) * _speed;
     img = nimg;
+    damage = 1;
   }
 
   public void drawObj(){
@@ -63,10 +64,10 @@ class Projectile implements Collideable {
   }
 
   public int getHeight(){
-    return 0;
+    return _rad * 2;
   }
   public int getWidth(){
-    return 0;
+    return _rad * 2;
   }
   public boolean outOfBounds() {
     return _xPos < 0 || _xPos > 15 || _xPos < 0 || _xPos > 15;

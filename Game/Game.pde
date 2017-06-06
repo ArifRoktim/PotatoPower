@@ -72,23 +72,23 @@ void draw() {
     }
   }
   
-  /* TODO: Fix bugged Enemy.isColliding() method
   // Do enemy and projectile collisions
   List<Collideable> probable = new LinkedList<Collideable>();
   for( int i = _enemies.size() - 1; i >= 0; i-- ){
     _qTree.retrieve( probable, _enemies.get(i) );
     for(Collideable e: probable){
-      if( e instanceof Projectile && _enemies.get(i).isColliding(e) ){
-        _enemies.get(i)._hp -= ( (Projectile) e ).damage;
-        _projectiles.remove( e );
-      }
-      if( ! _enemies.get(i).isAlive() ){
-        //_enemies.remove(i);
+      if( _enemies.size() > 0 ){
+        if( e instanceof Projectile && _enemies.get(i).isColliding(e) ){
+          _enemies.get(i)._hp -= ( (Projectile) e ).damage;
+          _projectiles.remove( e );
+        }
+        if( ! _enemies.get(i).isAlive() ){
+          _enemies.remove(i);
+        }
       }
     }
 
   }
-  */
   
   for (int i = _projectiles.size() - 1; i > -1; i--) {
      if (_projectiles.get(i).outOfBounds()){
