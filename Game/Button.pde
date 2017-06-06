@@ -87,20 +87,20 @@ class Button implements Drawable {
         break;
       case ATTACK:
         if (money > targetTower.getAtkCost()) {
-          targetTower.increaseAttack();
           money -= targetTower.getAtkCost();
+          targetTower.increaseAttack();
         }
         break;
       case RANGE:
         if (money > targetTower.getRangeCost()) {
-          targetTower.increaseRange();
           money -= targetTower.getRangeCost();
+          targetTower.increaseRange();
         }
         break;
       case RELOAD:
         if (money > targetTower.getReloadCost()) {
-          targetTower.increaseReload();
           money -= targetTower.getReloadCost();
+          targetTower.increaseReload();
         }
         break;
     }

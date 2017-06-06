@@ -213,7 +213,6 @@ void mouseClicked() {
     }
   } else if (_map.getTile(x, y).getType() == TileType.GRASS) {
     if (showUpgrades) {
-      showUpgrades = false;
       atkBtn.getTarget().setShowRange(false);
     }
     showUpgrades = true;
