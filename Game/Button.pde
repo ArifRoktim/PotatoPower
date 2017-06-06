@@ -47,7 +47,7 @@ class Button implements Drawable {
   }
    
   public void drawObj() {
-    tint(255, 100);
+    tint(255, 150);
     switch (_type) {
       case PLAY:
         image(img.play(), x, y);

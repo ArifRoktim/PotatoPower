@@ -26,9 +26,8 @@ Button rangeBtn;
 boolean showUpgrades;
 
 void setup() {
-  status = GameState.TITLE;
-  delay(1000);
   size(600, 600); //15x15 tiles
+  status = GameState.TITLE;
   menu = loadImage("title.jpg");
   loss = loadImage("loser.jpg");
   image(menu,0,0,width,height);
@@ -40,7 +39,7 @@ void setup() {
   _enemies = new LinkedList();
   _projectiles = new LinkedList();
   _towers = new LinkedList();
-  lives = 50;
+  lives = 30;
   _enemyQueue = new ArrayDeque<Enemy>();
   for (int i = 0; i < 50; i++)
     _enemyQueue.add(new Enemy(_map, _img));
@@ -231,4 +230,3 @@ void endScreen() {
   textAlign(RIGHT);
   text("YOU LOSE",400,200);
 }
-  
