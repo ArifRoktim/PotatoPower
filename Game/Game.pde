@@ -176,6 +176,23 @@ void mouseClicked() {
   int x = mouseX / 40;
   int y = mouseY / 40;
   Tile atMouse = _map.getTile(x, y);
+  if (playBtn.hovering()) {
+    playBtn.action();
+  } else if (showUpgrades) {
+    if (atkBtn.hovering()) {
+      atkBtn.action();
+      println("I done an upgrade!");
+      return;
+    } else if (reloadBtn.hovering()) {
+      reloadBtn.action();
+      println("I done an upgrade!");
+      return;
+    } else if (rangeBtn.hovering()) {
+      rangeBtn.action();
+      println("I done an upgrade!");
+      return;
+    }
+  }
   if ( atMouse.towerPlaceable() ) {
     if( money >= 20 ){
       Tower newTower = new Tower( x + .5, y + .5, _img );

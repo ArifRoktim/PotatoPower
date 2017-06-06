@@ -86,13 +86,22 @@ class Button implements Drawable {
       setType(ButtonType.FASTFORWARD_ON);      
       break;
       case ATTACK:
-      targetTower.increaseAttack();
+      if (money > targetTower.getAtkCost()) {
+        targetTower.increaseAttack();
+        money -= targetTower.getAtkCost();
+      }
       break;
       case RANGE:
-      targetTower.increaseRange();
+      if (money > targetTower.getRangeCost()) {
+        targetTower.increaseRange();
+        money -= targetTower.getRangeCost();
+      }
       break;
       case RELOAD:
-      targetTower.increaseReload();
+      if (money > targetTower.getReloadCost()) {
+        targetTower.increaseReload();
+        money -= targetTower.getReloadCost();
+      }
       break;
     }
   }
@@ -103,5 +112,9 @@ class Button implements Drawable {
   
   Tower getTarget() {
     return targetTower;
+  }
+  
+  boolean hovering() {
+    return mouseX > x && mouseX < x + 40 && mouseY > y && mouseY < y + 40;
   }
 }

@@ -1,6 +1,6 @@
 class Tower implements Collideable {
   
-  int _range;// maximum range to detect and shoot at an enemy
+  float _range;// maximum range to detect and shoot at an enemy
   float _xPos, _yPos;
   int _width, _height; // x-y coordinates, and dimensions for the hitbox
   float _reloadTime;// seconds between successive shots
@@ -10,6 +10,7 @@ class Tower implements Collideable {
   float _atk;
   boolean showRange;
   ImageStorage img;
+  int atkUpgradeCost, rangeUpgradeCost, reloadUpgradeCost;
   final int dim = 40;
   
   public Tower ( float x, float y, ImageStorage nimg ) {
@@ -18,12 +19,13 @@ class Tower implements Collideable {
     _yPos = y;
     _width = _height = 40;
     _reloadTime = 1;
-    _speed = 0.1;
+    _speed = 0.2;
     _enemies = new LinkedList<Enemy>();
     _angle = 0;
-    _atk = 10;
+    _atk = 5;
     img = nimg;
     showRange = false;
+    atkUpgradeCost = rangeUpgradeCost = reloadUpgradeCost = 10;
   }
   
   public void drawObj() {
@@ -62,7 +64,7 @@ class Tower implements Collideable {
     if (_enemies.isEmpty())
       return null;
     aim();
-    return new Projectile (_xPos, _yPos, _speed, _angle, img);
+    return new Projectile (_xPos, _yPos, _speed, _atk, _angle, img);
   }
   
   void aim() {
@@ -132,15 +134,32 @@ class Tower implements Collideable {
   }
   
   void increaseAttack() {
-    _atk += 3;
+    _atk += 2;
+    atkUpgradeCost += 10;
   }
   
   void increaseRange() {
     _range += 0.5;
+    rangeUpgradeCost += 10;
   }
   
   void increaseReload() {
-    _reloadTime -= 0.1;
+    if (_reloadTime > 0.1) {
+      _reloadTime -= 0.1;
+      reloadUpgradeCost += 10;
+    }
+  }
+  
+  int getAtkCost() {
+    return atkUpgradeCost;
+  }
+  
+  int getRangeCost() {
+    return rangeUpgradeCost;
+  }
+  
+  int getReloadCost() {
+    return reloadUpgradeCost;
   }
 
   public void collide( Collideable other){

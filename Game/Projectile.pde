@@ -1,5 +1,5 @@
 class Projectile implements Collideable {
-  int damage;
+  float damage;
   float _xPos, _yPos; // x and y coordinates
   int _rad = 4;
   double _dx, _dy; // change in x and y
@@ -7,7 +7,7 @@ class Projectile implements Collideable {
   ImageStorage img;
 
   // shoots depending on angle given by tower
-  Projectile( float x, float y, double _speed, float _angle, ImageStorage nimg) {
+  Projectile( float x, float y, double _speed, float dmg, float _angle, ImageStorage nimg) {
     _xPos = x;
     _yPos = y;
     if (_angle > 0 && _angle < PI/2) {
@@ -21,7 +21,7 @@ class Projectile implements Collideable {
     _dx = cos(_angle) * _speed;
     _dy = sin(_angle) * _speed;
     img = nimg;
-    damage = 1;
+    damage = dmg;
   }
 
   public void drawObj(){
