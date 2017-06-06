@@ -9,43 +9,43 @@ public class ImageStorage {
   final PImage attack = loadImage("attack.png");
   final PImage reload = loadImage("reload.png");
   final PImage range = loadImage("range.png");
-  
+
   public PImage grass() {
     return grass;
   }
-  
+
   public PImage tower() {
     return tower;
   }
-  
+
   public PImage path() {
     return path;
   }
-  
+
   public PImage turret() {
     return turret;
   }
-  
+
   public PImage play() {
     return play;
   }
-  
+
   public PImage fast() {
     return fast;
   }
-  
+
   public PImage slow() {
     return slow;
   }
-  
+
   public PImage attack() {
     return attack;
   }
-  
+
   public PImage range() {
     return range;
   }
-  
+
   public PImage reload() {
     return reload;
   }

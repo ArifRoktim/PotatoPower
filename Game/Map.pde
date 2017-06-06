@@ -10,7 +10,7 @@ public class Map implements Drawable {
   public Map(ImageStorage nimg) {
     img = nimg;
     int length = idealSquare();
-      Tile example = new Tile();
+    Tile example = new Tile();
     _width = width/example.dim; // number of columns
     _height = height/example.dim; // number of rows
     _map = new Tile [_height][_width];
@@ -40,7 +40,7 @@ public class Map implements Drawable {
     _start = _map[7][14];
     setValues();
   }
-  
+
   private void setValues() {
     int currentVal = 1;
     Tile currentTile = _start;
@@ -49,7 +49,7 @@ public class Map implements Drawable {
       Tile down = getDown(currentTile);
       Tile left = getLeft(currentTile);
       Tile right = getRight(currentTile);
-      
+
       if (up != null && up.getValue() == 0) {
         currentTile = up;
         currentTile.setValue(currentVal);
@@ -110,43 +110,43 @@ public class Map implements Drawable {
     ImageStorage img = new ImageStorage();
     image(img.tower(), x*40, y*40, 40, 40);
   }
-  
+
   public ImageStorage getImg() {
     return img;
   }
-  
+
   Tile getTile(int x, int y) {
     return _map[y][x];
   }
-  
+
   Tile getLeft(Tile t) {
     if (t.getX() - 1 < 0)
       return null;
     return _map[t.getY()][t.getX() - 1];
   }
-  
+
   Tile getRight(Tile t) {
     if (t.getX() + 1 > 14)
       return null;
     return _map[t.getY()][t.getX() + 1];
   }
-  
+
   Tile getUp(Tile t) {
     if (t.getY() - 1 < 0)
       return null;
     return _map[t.getY() - 1][t.getX()];
   }
-  
+
   Tile getDown(Tile t) {
     if (t.getY() + 1 > 14)
       return null;
     return _map[t.getY() + 1][t.getX()];
   }
-  
+
   Tile getStart() {
     return _start;
   }
-  
+
   Tile getEnd() {
     return _end;
   }

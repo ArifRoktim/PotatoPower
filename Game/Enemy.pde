@@ -42,16 +42,16 @@ class Enemy implements Collideable {
     setMovement();
     _xPos += _dx;
     _yPos += _dy;
-    
+
     if (dist(_xPos*40, _yPos*40, _target.getX()*40 + 20, _target.getY()*40 + 20) < 5) { //if you have reached target
       //print("reached target");
-      
+
       _dx = _dy = 0;
       Tile up = _map.getUp(_target);
       Tile down = _map.getDown(_target);
       Tile left = _map.getLeft(_target);
       Tile right = _map.getRight(_target);
-      
+
       if (up != null && up.getValue() > _target.getValue())
         _target = up;
       else if (down != null && down.getValue() > _target.getValue())
@@ -62,28 +62,28 @@ class Enemy implements Collideable {
         _target = right;
     }
   }
-  
+
   private void setMovement() {
     float deltaX = _target.getX() + 0.5 - _xPos;
     float deltaY = _target.getY() + 0.5 - _yPos;
     float h = sqrt(deltaX*deltaX + deltaY*deltaY);
-    
+
     /*
-    if (deltaX < 0.01) {
-      _dy = _d*deltaY/abs(deltaY);
-    }
-    else if (deltaY < 0.01) {
-      _dx = _d*deltaX/abs(deltaX);
-    } else {
-      _dx = deltaX*_d/h;
-      _dy = deltaY*_d/h;
-    }
-    println("h: " + h);
-    println("dx: " + _dx);
-    println("dy: " + _dy);
-    */
-    
-    
+       if (deltaX < 0.01) {
+       _dy = _d*deltaY/abs(deltaY);
+       }
+       else if (deltaY < 0.01) {
+       _dx = _d*deltaX/abs(deltaX);
+       } else {
+       _dx = deltaX*_d/h;
+       _dy = deltaY*_d/h;
+       }
+       println("h: " + h);
+       println("dx: " + _dx);
+       println("dy: " + _dy);
+     */
+
+
     if (_target.getX() + 0.5 < _xPos) {
       _dx = -1*_d;
     } else if (_target.getX() + 0.5 > _xPos) {
@@ -94,7 +94,7 @@ class Enemy implements Collideable {
     } else if (_target.getY() + 0.5 > _yPos) {
       _dy = _d;
     }
-    
+
     if (_dx != 0 && _dy != 0) {
       if (deltaX > deltaY) {
         _dy = 0;
@@ -102,7 +102,7 @@ class Enemy implements Collideable {
         _dx = 0;
       }
     }
-    
+
   }
 
   //TODO: fix bugged method
@@ -141,16 +141,16 @@ class Enemy implements Collideable {
   public int getHeight(){
     return _rad * 2;
   }
-  
+
   String toString() {
     String ret = "";
     ret += "X: " + _xPos;
     ret += " Y: " + _yPos;
     return ret;
   }
-  
+
   // prints information about the surrounding tiles
-   String printInfo() {
+  String printInfo() {
     String retVal="";
     if (_xPos+1<_map._width){
       Tile tile1= _map.getTile((int)_xPos+1 ,(int)_yPos);

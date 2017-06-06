@@ -12,11 +12,11 @@ class Projectile implements Collideable {
     _yPos = y;
     if (_angle > 0 && _angle < PI/2) {
     } else if (_angle > PI/2 && _angle < PI) {
-      
+
     } else if (_angle > PI && _angle < 3*PI/2) {
-      
+
     } else if (_angle > 0 && _angle < PI/2) {
-      
+
     }
     _dx = cos(_angle) * _speed;
     _dy = sin(_angle) * _speed;
@@ -26,10 +26,10 @@ class Projectile implements Collideable {
 
   public void drawObj(){
     // temporary image
-    
+
     //diagnostics:
     //System.out.println("xpos = " + _xPos + " ypos = " + _yPos);
-    
+
     fill (0);
     ellipseMode(CENTER);
     ellipse( _xPos*40 , _yPos*40, _rad * 2, _rad * 2 );

@@ -63,71 +63,71 @@ void draw() {
   if (status == GameState.TITLE){
   }
   else if (status == GameState.GAMEPLAY) {
-  spawn();
-  
-  for ( Enemy e : _enemies ) {
-    e.move();
-  }
-  for (Projectile p : _projectiles) {
-    p.move();
-  }
-  
-  
-  //if enemy reaches end, decrease lives
-  if (!_enemies.isEmpty()) {
-    Enemy first = _enemies.get(0);
-    // check if enemy has reached end of map
-    if (dist(first.getX()*40, first.getY()*40, _map.getEnd().getX()*40 + 20, _map.getEnd().getY()*40 + 20) < 5) {
-      // make sure that towers no longer target enemy by giving the enemy invalid coordinates
-      _enemies.get(0)._xPos = _enemies.get(0)._yPos = -1;
-      _enemies.remove(0);
-      lives--;
+    spawn();
+
+    for ( Enemy e : _enemies ) {
+      e.move();
     }
-  }
-  
-  // Do enemy and projectile collisions
-  List<Collideable> probable = new LinkedList<Collideable>();
-  for( int i = _enemies.size() - 1; i >= 0; i-- ){
-    _qTree.retrieve( probable, _enemies.get(i) );
-    for(Collideable e: probable){
-      if( _enemies.size() > 0 ){
-        if( e instanceof Projectile && _enemies.get(i).isColliding(e) ){
-          _enemies.get(i)._hp -= ( (Projectile) e ).damage;
-          _projectiles.remove( e );
+    for (Projectile p : _projectiles) {
+      p.move();
+    }
+
+
+    //if enemy reaches end, decrease lives
+    if (!_enemies.isEmpty()) {
+      Enemy first = _enemies.get(0);
+      // check if enemy has reached end of map
+      if (dist(first.getX()*40, first.getY()*40, _map.getEnd().getX()*40 + 20, _map.getEnd().getY()*40 + 20) < 5) {
+        // make sure that towers no longer target enemy by giving the enemy invalid coordinates
+        _enemies.get(0)._xPos = _enemies.get(0)._yPos = -1;
+        _enemies.remove(0);
+        lives--;
+      }
+    }
+
+    // Do enemy and projectile collisions
+    List<Collideable> probable = new LinkedList<Collideable>();
+    for( int i = _enemies.size() - 1; i >= 0; i-- ){
+      _qTree.retrieve( probable, _enemies.get(i) );
+      for(Collideable e: probable){
+        if( _enemies.size() > 0 ){
+          if( e instanceof Projectile && _enemies.get(i).isColliding(e) ){
+            _enemies.get(i)._hp -= ( (Projectile) e ).damage;
+            _projectiles.remove( e );
+          }
+          if( ! _enemies.get(i).isAlive() ){
+            _enemies.remove(i);
+          }
         }
-        if( ! _enemies.get(i).isAlive() ){
-          _enemies.remove(i);
+      }
+
+    }
+
+    for (int i = _projectiles.size() - 1; i > -1; i--) {
+      if (_projectiles.get(i).outOfBounds()){
+        Projectile p = _projectiles.get(i);
+        //println("removed projectile: " + p.getX() + ", " + p.getY());
+        _projectiles.remove(i);
+      }
+    }
+
+    // PROJECTILE SHOT EVERY RELOAD TIME
+    for (Tower x: _towers) {
+      x.detect();
+      x.aim();
+      if ((frameCount % (int)(x._reloadTime*60)) == 0) {
+        Projectile p = x.shoot();
+        if (p != null) {
+          _projectiles.add(p);
+          //println("dx: " + p._dx + " dy: " + p._dy);
         }
       }
     }
 
-  }
-  
-  for (int i = _projectiles.size() - 1; i > -1; i--) {
-     if (_projectiles.get(i).outOfBounds()){
-       Projectile p = _projectiles.get(i);
-       //println("removed projectile: " + p.getX() + ", " + p.getY());
-       _projectiles.remove(i);
-     }
-  }
-  
-  // PROJECTILE SHOT EVERY RELOAD TIME
-  for (Tower x: _towers) {
-    x.detect();
-    x.aim();
-    if ((frameCount % (int)(x._reloadTime*60)) == 0) {
-      Projectile p = x.shoot();
-      if (p != null) {
-        _projectiles.add(p);
-        //println("dx: " + p._dx + " dy: " + p._dy);
-      }
+    render();
+    if (lives <= 0) {
+      status = GameState.END;
     }
-  }
-  
-  render();
-  if (lives <= 0) {
-    status = GameState.END;
-  }
   }
   else if (status == GameState.END) {
     endScreen();
