@@ -44,6 +44,18 @@ LESSONS LEARNED
 <Member> :: <Thing member did.>
 ==============================================================
 
+2017-06-06
+--------------------------------------------------------------
+Arif :: Added money system and setup stage. Towers cost money and enemies give money when killed.
+Shakil :: Added upgrades for towers such as increased damage, reload speed, and range
+<Member> :: <Thing member did.>
+==============================================================
+
+2017-06-05
+--------------------------------------------------------------
+Arif :: Completed enemy-projectile collision. Enemies now take damage and die.
+==============================================================
+
 2017-06-04
 --------------------------------------------------------------
 Alitquan :: added gameStates, such as a title and an end
