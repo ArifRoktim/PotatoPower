@@ -76,8 +76,11 @@ void draw() {
   //if enemy reaches end, decrease lives
   if (!_enemies.isEmpty()) {
     Enemy first = _enemies.get(0);
+    // check if enemy has reached end of map
     if (dist(first.getX()*40, first.getY()*40, _map.getEnd().getX()*40 + 20, _map.getEnd().getY()*40 + 20) < 5) {
-      _enemies.remove(first);
+      // make sure that towers no longer target enemy by giving the enemy invalid coordinates
+      _enemies.get(0)._xPos = _enemies.get(0)._yPos = -1;
+      _enemies.remove(0);
       lives--;
     }
   }
