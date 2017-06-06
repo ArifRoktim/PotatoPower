@@ -15,7 +15,7 @@ List<Tower> _towers;
 QuadTree _qTree;
 Deque<Enemy> _enemyQueue;
 GameState status;
-int lives;
+int lives, money;
 boolean running;
 PImage menu;
 PImage loss;
@@ -40,6 +40,7 @@ void setup() {
   _projectiles = new LinkedList();
   _towers = new LinkedList();
   lives = 30;
+  money = 100;
   _enemyQueue = new ArrayDeque<Enemy>();
   for (int i = 0; i < 50; i++)
     _enemyQueue.add(new Enemy(_map, _img));
@@ -145,6 +146,7 @@ void render() {
   }
   fill(0);
   text("Lives: " + lives, 80, 40);
+  text("Money: " + money, 80, 80);
   playBtn.drawObj();
   if (showUpgrades) {
     atkBtn.drawObj();
@@ -175,12 +177,15 @@ void mouseClicked() {
   int y = mouseY / 40;
   Tile atMouse = _map.getTile(x, y);
   if ( atMouse.towerPlaceable() ) {
-    // TODO: Make tile take a tower object as an arguement
-    // so that we can add the tower object to _drawables
-    Tower newTower = new Tower( x + .5, y + .5, _img );
-    _towers.add(newTower);
-    atMouse.addTower( newTower );
-    println("Added tower");
+    if( money >= 20 ){
+      Tower newTower = new Tower( x + .5, y + .5, _img );
+      _towers.add(newTower);
+      atMouse.addTower( newTower );
+      println("Added tower");
+      money -= 20;
+    } else {
+      //print message about insufficient funds
+    }
   } else if (_map.getTile(x, y).getType() == TileType.GRASS) {
     if (showUpgrades) {
       showUpgrades = false;
