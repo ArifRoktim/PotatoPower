@@ -15,8 +15,6 @@ public class QuadTree {
     _objects = new ArrayList();
     _bounds = bounds;
     _nodes = new QuadTree[4];
-    _maxObjects = 10;
-    _maxLevels = 5;
   }
 
   // Clears QuadTree
