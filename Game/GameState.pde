@@ -3,5 +3,6 @@ enum GameState {
   TUTORIAL,
   WAITING,
   GAMEPLAY,
-  END;
+  END,
+  WIN;
 }

@@ -19,6 +19,7 @@ int lives, money,kills;
 boolean running;
 PImage menu;
 PImage loss;
+PImage win;
 Button playBtn, atkBtn, reloadBtn, rangeBtn, speedBtn;
 Button confirmBtn, cancelBtn;
 int tutorialSlide;
@@ -29,6 +30,7 @@ void setup() {
   status = GameState.TITLE;
   menu = loadImage("title.jpg");
   loss = loadImage("loser.jpg");
+  win = loadImage("sun.jpg");
   image(menu,0,0,width,height);
   titleScreen();
   tutorialSlide = 0;
@@ -139,9 +141,15 @@ void draw() {
     if (lives <= 0) {
       status = GameState.END;
     }
+    else if (_enemyQueue.isEmpty()) {
+      status = GameState.WIN;
+    }
   }
   else if (status == GameState.END) {
     endScreen();
+  }
+  else if (status == GameState.WIN){
+    winScreen();
   }
 }
 
@@ -309,4 +317,13 @@ void endScreen() {
   text("YOU LOSE",400,200);
   textSize(20);
   text("You killed " + kills + " enemies.",415,465); 
+}
+
+void winScreen() {
+  image(win,0,0,width,height);
+  textSize(40);
+  textAlign(RIGHT);
+  text("YOU WIN",395,240);
+  textSize(20);
+  text("You killed " + kills + " enemies.",415,410); 
 }
