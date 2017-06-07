@@ -105,7 +105,7 @@ void draw() {
           }
           if( ! _enemies.get(i).isAlive() ){
             _enemies.remove(i);
-            money += 5;
+            money += 2;
             kills++;
           }
         }

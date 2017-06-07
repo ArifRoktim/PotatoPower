@@ -23,7 +23,7 @@ class Tower implements Collideable {
     _speed = 0.1;
     _enemies = new LinkedList<Enemy>();
     _angle = 0;
-    _atk = 5;
+    _atk = 2;
     img = nimg;
     showRange = false;
     active = false;
@@ -144,7 +144,7 @@ class Tower implements Collideable {
   }
   
   void increaseSpeed(){
-    _speed += 0.5;
+    _speed += 0.2;
     speedUpgradeCost += 10;
   }
 
