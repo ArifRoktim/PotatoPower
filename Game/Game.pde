@@ -45,7 +45,7 @@ void setup() {
   kills = 0;
   money = 100;
   _enemyQueue = new ArrayDeque<Enemy>();
-  for (int i = 0; i < 1; i++)
+  for (int i = 0; i < 70; i++)
     _enemyQueue.add(new Enemy(_map, _img));
   textSize(24);
   fill(255, 0, 0);
