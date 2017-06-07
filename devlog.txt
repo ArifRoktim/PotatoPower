@@ -10,20 +10,43 @@ Tower Defense
 ------------------------------------------
 OBSTACLES OVERCOME
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Biggest obstacles were hands-down projectile
+motion and collision detection via the Quad-
+Tree. Debugging it was a challenge because
+of the plethora of method we had. Another 
+big issue was uniformity of x and y. For some
+structures, such as the array, x and y 
+coordinates were initally switched, which made
+everythin extremely confusing.
 
 UNRESOLVED ISSUES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enemies disappear slightly before getting 
+off the map.
 
 COOL STUFF LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+We learned about that the massive amounts
+of flash games that are circulated around 
+the web aren't to make as they seem. They 
+also took hard work to make. The biggest 
+thing we learnt is about the process of 
+making a game and how huge the role of testing
+and logistical work plays. We also found 
+a way to use a deque. Three other things
+we learnt about were the usages of Quadtree
+and enums.
 
 MID-DEVELOPMENT DESIGN CHANGES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+We changed the end screen and the win screen.
 
 LESSONS LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+We learned that all group projects aren't 
+bound to be completely imbalanced in terms 
+of work distribution. We also learnt how 
+valuable UML diagrams are.
 ||||||||||||||||||||||||||||||||||||||||||
 
 
@@ -46,20 +69,41 @@ LESSONS LEARNED
 
 2017-06-06
 --------------------------------------------------------------
+<<<<<<< HEAD
+Arif :: Added money system and setup stage. Towers cost money 
+and enemies give money when killed.Balancing work for difficulty. 
+Added speed upgrade to towers. Debugging for movement, quadtree 
+detection, and upgrades.
+Shakil :: Added upgrades for towers such as increased damage, 
+reload speed, and range. Also added tutorial 
+Alitquan :: Added enemy kill counter, modified buttons for towers, 
+added win screen, improved lose screen, resizing of text.
+=======
 Arif :: Added money system and setup stage. Towers cost money and enemies give money when killed. Fixed bugs in enemy movement. Added upgrades for towers. Balanced game.
 Shakil :: Added upgrades for towers such as increased damage, reload speed, and range. Fixed bug in enemy-projectile collision detection. Added tutorial.
 Alitquan :: Made upgrade menu show cost of upgrade. Added kill counter.
+>>>>>>> e379128aee1c1bb8ff36a50af48fbc952c490c2f
 ==============================================================
 
 2017-06-05
 --------------------------------------------------------------
-Arif :: Completed enemy-projectile collision. Enemies now take damage and die.
+Arif :: Completed enemy-projectile collision. Enemies now take 
+damage and die.
+Alitquan :: added gameStates, such as a title and an end
+Shakil :: Completed aiming/shooting for towers, fixed 
+projectile movement, and worked on collision detection
 ==============================================================
 
 2017-06-04
 --------------------------------------------------------------
-Alitquan :: added gameStates, such as a title and an end
-Shakil :: Completed aiming/shooting for towers, fixed projectile movement, and worked on collision detection
+Shakil: Work on shooting, aiming, and collision detection
+==============================================================
+
+2017-06-02
+--------------------------------------------------------------
+Arif: Work on enemy detection via collision
+Alitquan: General cleanup- removal of out-of-range projectiles
+and enemies from processing window
 ==============================================================
 
 2017-06-01
@@ -70,12 +114,16 @@ Shakil :: Worked on shooting mechanism
 2017-05-31
 --------------------------------------------------------------
 Arif :: Worked on enemy detection by towers
+Shakil :: Revamped enemy movement
+Alitquan:: Implemented launching of projectiles from towers
 ==============================================================
 
 2017-05-30
 --------------------------------------------------------------
-Alitquan Mallick:: implemented basic projectile motion, albeit
-calculations to intersect enemies on queue still needed
+Alitquan Mallick:: Changed projectile to move according to 
+speed and angle although launching is still needed
+Shakil:: Debugged errors pertaining to lives and enemies, as 
+well as enemy movement around corners
 ==============================================================
 
 2017-05-29
@@ -91,28 +139,38 @@ although there is a tile delay throughout
 
 2017-05-27
 --------------------------------------------------------------
-Arif :: Made enemies move
+Arif :: Implemented basic enemy movement, although vertical 
+movement is buggy. Also made _width and _height uniform.
 ==============================================================
 
 2017-05-26
 --------------------------------------------------------------
-Arif :: Made enemies spawn
+Arif :: Implemented spawning of enemies and basic clarification
+in regards to x and y in relation to the Processing window and
+the Game map. Spawning of towers implementerd.
+Alitquan :: Created tower class and added basic methods
+Shakil :: Additional work on spawning of towers
 ==============================================================
 
 2017-05-25
 --------------------------------------------------------------
-Arif :: Made Game use Map class instead of 2d array of Tiles. Worked on using QuadTrees for collision detection.
+Arif :: Made Game use Map class instead of 2d array of Tiles. 
+Worked on using QuadTrees for collision detection.
+Alitquan :: Created the Map class along with basic methods
+Shakil :: Image work for towers, turrets, etc.
 ==============================================================
 
 2017-05-24
 --------------------------------------------------------------
 Alitquan :: Hardcoded default map
-Arif :: Implemeted QuadTree
+Arif :: Implemented QuadTree and worke on Collideable interface
+Shakil :: Implemented efficient image storage.
 ==============================================================
 
 2017-05-23
 --------------------------------------------------------------
-Shakil :: Worked on drawable interface and drawing tiles to window
+Shakil :: Worked on drawable interface and drawing tiles to 
+window. 
 Arif :: Worked on flowchart
 ==============================================================
 
