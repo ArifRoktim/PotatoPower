@@ -45,7 +45,7 @@ void setup() {
   kills = 0;
   money = 100;
   _enemyQueue = new ArrayDeque<Enemy>();
-  for (int i = 0; i < 70; i++)
+  for (int i = 0; i < 1; i++)
     _enemyQueue.add(new Enemy(_map, _img));
   textSize(24);
   fill(255, 0, 0);
@@ -313,19 +313,18 @@ void titleScreen() {
 }
 
 void endScreen() {
-  image(loss,0,0,width,height);
   textSize(40);
-  textAlign(RIGHT);
-  text("YOU LOSE",400,200);
-  textSize(20);
-  text("You killed " + kills + " enemies.",415,465); 
+  textAlign(CENTER);
+  text("YOU LOSE",300,300);
+  textSize(30);
+  text("You killed " + kills + " enemies.",300,350); 
 }
 
 void winScreen() {
-  image(win,0,0,width,height);
   textSize(40);
-  textAlign(RIGHT);
-  text("YOU WIN",395,240);
-  textSize(20);
-  text("You killed " + kills + " enemies.",415,410); 
+  textAlign(CENTER);
+  text("YOU WIN",300,300);
+  textSize(30);
+  text("You killed " + kills + " enemies.",300,350); 
 }
+
