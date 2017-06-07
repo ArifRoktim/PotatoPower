@@ -15,7 +15,7 @@ List<Tower> _towers;
 QuadTree _qTree;
 Deque<Enemy> _enemyQueue;
 GameState status;
-int lives, money;
+int lives, money,kills;
 boolean running;
 PImage menu;
 PImage loss;
@@ -40,6 +40,7 @@ void setup() {
   _projectiles = new LinkedList();
   _towers = new LinkedList();
   lives = 30;
+  kills = 0;
   money = 100;
   _enemyQueue = new ArrayDeque<Enemy>();
   for (int i = 0; i < 50; i++)
@@ -102,6 +103,7 @@ void draw() {
           if( ! _enemies.get(i).isAlive() ){
             _enemies.remove(i);
             money += 5;
+            kills++;
           }
         }
       }
@@ -305,4 +307,6 @@ void endScreen() {
   textSize(40);
   textAlign(RIGHT);
   text("YOU LOSE",400,200);
+  textSize(20);
+  text("You killed " + kills + " enemies.",415,465); 
 }
