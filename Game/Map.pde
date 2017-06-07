@@ -65,33 +65,6 @@ public class Map implements Drawable {
     _end = getTile(14, 5);
   }
 
-  private void setValues() {
-    int currentVal = 1;
-    Tile currentTile = _start;
-    while (currentTile != _end) {
-      Tile up = getUp(currentTile);
-      Tile down = getDown(currentTile);
-      Tile left = getLeft(currentTile);
-      Tile right = getRight(currentTile);
-
-      if (up != null && up.getValue() == 0) {
-        currentTile = up;
-        currentTile.setValue(currentVal);
-      } else if (down != null && down.getValue() == 0) {
-        currentTile = down;
-        currentTile.setValue(currentVal);
-      } else if (left != null && left.getValue() == 0) {
-        currentTile = left;
-        currentTile.setValue(currentVal);
-      } else if (right != null && right.getValue() == 0) {
-        currentTile = right;
-        currentTile.setValue(currentVal);
-      }
-      currentVal++;
-    }
-    _end.setValue(currentVal);
-  }
-
   public void drawObj() {
     for (Tile[] row : _map)
       for (Tile t : row)

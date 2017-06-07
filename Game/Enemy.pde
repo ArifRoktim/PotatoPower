@@ -7,7 +7,7 @@ class Enemy implements Collideable {
   Tile _target; // The tile that Enemy should be moving toward
   float _d; // speed of Enemy
   /* _dx and _dy are the horizontal and vertical speed
-   * they will be the product of _d and either -1 or 1 
+   * they depend on _d
    */
   float _dx, _dy;
   Map _map;
