@@ -269,7 +269,7 @@ void mouseClicked() {
       //print message about insufficient funds
     }
   }
-  // close menu when you click outside of the menu
+  // open menu when click on tower
   else if ( _map.getTile(x, y).getType() == TileType.GRASS) {
     if (showUpgrades) {
       atkBtn.getTarget().setShowRange(false);

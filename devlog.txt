@@ -69,20 +69,9 @@ valuable UML diagrams are.
 
 2017-06-06
 --------------------------------------------------------------
-<<<<<<< HEAD
-Arif :: Added money system and setup stage. Towers cost money 
-and enemies give money when killed.Balancing work for difficulty. 
-Added speed upgrade to towers. Debugging for movement, quadtree 
-detection, and upgrades.
-Shakil :: Added upgrades for towers such as increased damage, 
-reload speed, and range. Also added tutorial 
-Alitquan :: Added enemy kill counter, modified buttons for towers, 
-added win screen, improved lose screen, resizing of text.
-=======
-Arif :: Added money system and setup stage. Towers cost money and enemies give money when killed. Fixed bugs in enemy movement. Added upgrades for towers. Balanced game.
+Arif :: Added money system and setup stage. Towers cost money and enemies give money when killed. Fixed bugs in enemy movement. Added upgrades for towers. Balanced game. Added win screen. Updated flowchart and uml diagrams.
 Shakil :: Added upgrades for towers such as increased damage, reload speed, and range. Fixed bug in enemy-projectile collision detection. Added tutorial.
-Alitquan :: Made upgrade menu show cost of upgrade. Added kill counter.
->>>>>>> e379128aee1c1bb8ff36a50af48fbc952c490c2f
+Alitquan :: Made upgrade menu show cost of upgrade. Added kill counter. Added win screen.
 ==============================================================
 
 2017-06-05
