@@ -247,8 +247,6 @@ void mouseClicked() {
   else if (confirmTower){
     if (confirmBtn.hovering()){
       confirmBtn.action();
-    } else if (cancelBtn.hovering()){
-      cancelBtn.action();
     } else {
       cancelBtn.action();
     }
@@ -281,21 +279,6 @@ void mouseClicked() {
     rangeBtn.setTarget(atMouse.getTower());
     speedBtn.setTarget(atMouse.getTower());
     reloadBtn.setTarget(atMouse.getTower());
-  }
-}
-
-void keyPressed() {
-  if (key == 's' && status== GameState.TITLE) {
-    status = GameState.TUTORIAL;
-  }
-  else if (key == ' ') {
-    if (running) {
-      running = false;
-      noLoop();
-    } else {
-      running = true;
-      loop();
-    }
   }
 }
 
