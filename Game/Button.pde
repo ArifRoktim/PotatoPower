@@ -102,19 +102,19 @@ class Button implements Drawable {
         setType(ButtonType.FASTFORWARD_ON);      
         break;
       case ATTACK:
-        if (money > targetTower.getAtkCost()) {
+        if (money >= targetTower.getAtkCost()) {
           money -= targetTower.getAtkCost();
           targetTower.increaseAttack();
         }
         break;
       case RANGE:
-        if (money > targetTower.getRangeCost()) {
+        if (money >= targetTower.getRangeCost()) {
           money -= targetTower.getRangeCost();
           targetTower.increaseRange();
         }
         break;
       case RELOAD:
-        if (money > targetTower.getReloadCost()) {
+        if (money >= targetTower.getReloadCost()) {
           money -= targetTower.getReloadCost();
           targetTower.increaseReload();
         }
