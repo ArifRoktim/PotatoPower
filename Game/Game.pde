@@ -202,11 +202,10 @@ void popQuadTree() {
 }
 
 void tutorial() {
-  switch (tutorialSlide) {
-    case 0:
-    _map.drawObj();
-    break;
-  }
+  PImage pimg = loadImage("tutorial" + tutorialSlide + ".png");
+  image(pimg, 0, 0, width, height);
+  fill(0);
+  text("click to go on", 500, 550);
 }
 
 void mouseClicked() {
@@ -214,7 +213,7 @@ void mouseClicked() {
   int y = mouseY / 40;
   Tile atMouse = _map.getTile(x, y);
   if (status == GameState.TITLE) {
-    status = GameState.WAITING;
+    status = GameState.TUTORIAL;
     tutorial();
   } else if (status == GameState.TUTORIAL) {
     tutorialSlide++;
