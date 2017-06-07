@@ -70,12 +70,18 @@ class Button implements Drawable {
         break;
       case ATTACK:
         image(img.attack(), x, y);
+        textSize(9);
+        text(getTarget().atkUpgradeCost,x+20,y+32);
         break;
       case RANGE:
         image(img.range(), x, y);
+        textSize(9);
+        text(getTarget().rangeUpgradeCost,x+20,y+32);
         break;
       case RELOAD:
         image(img.reload(), x, y);
+        textSize(9);
+        text(getTarget().reloadUpgradeCost,x+20,y+40);
         break;
       case OK:
         image(img.ok(), x, y);
