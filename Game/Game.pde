@@ -19,10 +19,7 @@ int lives, money;
 boolean running;
 PImage menu;
 PImage loss;
-Button playBtn;
-Button atkBtn;
-Button reloadBtn;
-Button rangeBtn;
+Button playBtn, atkBtn, reloadBtn, rangeBtn, speedBtn;
 Button confirmBtn, cancelBtn;
 int tutorialSlide;
 boolean showUpgrades, confirmTower;
@@ -160,6 +157,7 @@ void render() {
     t.drawObj();
   }
   fill(0);
+  textSize(24);
   text("Lives: " + lives, 80, 40);
   text("Money: " + money, 80, 80);
   playBtn.drawObj();
