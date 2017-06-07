@@ -23,7 +23,8 @@ Button playBtn;
 Button atkBtn;
 Button reloadBtn;
 Button rangeBtn;
-boolean showUpgrades;
+Button confirmBtn, cancelBtn;
+boolean showUpgrades, confirmTower;
 
 void setup() {
   size(600, 600); //15x15 tiles
@@ -51,7 +52,10 @@ void setup() {
   atkBtn = new Button(0, 0, ButtonType.ATTACK, null, _img);
   reloadBtn = new Button(0, 0, ButtonType.RELOAD, null, _img);
   rangeBtn = new Button(0, 0, ButtonType.RANGE, null, _img);
+  confirmBtn = new Button(0, 0, ButtonType.OK, null, _img);
+  cancelBtn = new Button(0, 0, ButtonType.CANCEL, null, _img);
   showUpgrades = false;
+  confirmTower = false;
   //speedup for development
   //frameRate(120);
 }
@@ -115,13 +119,15 @@ void draw() {
 
     // PROJECTILE SHOT EVERY RELOAD TIME
     for (Tower x: _towers) {
-      x.detect();
-      x.aim();
-      if ((frameCount % (int)(x._reloadTime*60)) == 0) {
-        Projectile p = x.shoot();
-        if (p != null) {
-          _projectiles.add(p);
-          //println("dx: " + p._dx + " dy: " + p._dy);
+      if( x.active ){
+        x.detect();
+        x.aim();
+        if ((frameCount % (int)(x._reloadTime*60)) == 0) {
+          Projectile p = x.shoot();
+          if (p != null) {
+            _projectiles.add(p);
+            //println("dx: " + p._dx + " dy: " + p._dy);
+          }
         }
       }
     }
@@ -157,6 +163,10 @@ void render() {
     atkBtn.drawObj();
     reloadBtn.drawObj();
     rangeBtn.drawObj();
+  }
+  if (confirmTower){
+    confirmBtn.drawObj();
+    cancelBtn.drawObj();
   }
 }
 
@@ -200,6 +210,16 @@ void mouseClicked() {
       showUpgrades = false;
       atkBtn.getTarget().setShowRange(false);
     }
+  } 
+  else if (confirmTower){
+    if (confirmBtn.hovering()){
+      confirmBtn.action();
+    } else if (cancelBtn.hovering()){
+      cancelBtn.action();
+    } else {
+      cancelBtn.action();
+    }
+    confirmTower = false;
   }
   else if ( atMouse.towerPlaceable() ) {
     if( money >= 20 ){
@@ -207,11 +227,17 @@ void mouseClicked() {
       _towers.add(newTower);
       atMouse.addTower( newTower );
       println("Added tower");
-      money -= 20;
+      // display confirmation menu
+      confirmTower = true;
+      newTower.setShowRange(true);
+      confirmBtn.setTarget(atMouse.getTower());
+      cancelBtn.setTarget(atMouse.getTower());
+
+      //money -= 20;
     } else {
       //print message about insufficient funds
     }
-  } else if (_map.getTile(x, y).getType() == TileType.GRASS) {
+  } else if ( _map.getTile(x, y).getType() == TileType.GRASS) {
     if (showUpgrades) {
       atkBtn.getTarget().setShowRange(false);
     }

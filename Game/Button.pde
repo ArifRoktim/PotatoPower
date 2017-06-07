@@ -18,6 +18,8 @@ class Button implements Drawable {
   }
 
   void setTarget(Tower t) {
+    if( t == null )
+      return;
     targetTower = t;
     float tx = t.getX()*40;
     float ty = t.getY()*40;
@@ -33,6 +35,14 @@ class Button implements Drawable {
       case RELOAD:
         x = tx - 20;
         y = ty + 5;
+        break;
+      case OK:
+        x = tx - 45;
+        y = ty - 20;
+        break;
+      case CANCEL:
+        x = tx + 5;
+        y = ty - 20;
         break;
     }
     t.setShowRange(true);
@@ -66,6 +76,12 @@ class Button implements Drawable {
         break;
       case RELOAD:
         image(img.reload(), x, y);
+        break;
+      case OK:
+        image(img.ok(), x, y);
+        break;
+      case CANCEL:
+        image(img.cancel(), x, y);
         break;
     }
     noTint();
@@ -102,6 +118,22 @@ class Button implements Drawable {
           money -= targetTower.getReloadCost();
           targetTower.increaseReload();
         }
+        break;
+      case OK:
+        targetTower.active = true;
+        targetTower.setShowRange(false);
+        money -= 20;
+        break;
+      case CANCEL:
+        for( Tile[] row: _map._map ){
+          for( Tile tile: row ){
+            if( tile._tower == targetTower ){
+              tile._tower = null;
+              break;
+            }
+          }
+        }
+        _towers.remove( targetTower );
         break;
     }
   }

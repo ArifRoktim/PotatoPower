@@ -12,6 +12,7 @@ class Tower implements Collideable {
   ImageStorage img;
   int atkUpgradeCost, rangeUpgradeCost, reloadUpgradeCost;
   final int dim = 40;
+  boolean active;
 
   public Tower ( float x, float y, ImageStorage nimg ) {
     _range = 3;
@@ -25,6 +26,7 @@ class Tower implements Collideable {
     _atk = 5;
     img = nimg;
     showRange = false;
+    active = false;
     atkUpgradeCost = rangeUpgradeCost = reloadUpgradeCost = 10;
   }
 

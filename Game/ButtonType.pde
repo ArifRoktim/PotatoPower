@@ -4,5 +4,7 @@ enum ButtonType {
   FASTFORWARD_OFF,
   ATTACK,
   RANGE,
-  RELOAD
+  RELOAD,
+  OK,
+  CANCEL
 }

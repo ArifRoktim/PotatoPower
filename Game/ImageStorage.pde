@@ -9,6 +9,8 @@ public class ImageStorage {
   final PImage attack = loadImage("attack.png");
   final PImage reload = loadImage("reload.png");
   final PImage range = loadImage("range.png");
+  final PImage ok = loadImage("ok.png");
+  final PImage cancel = loadImage("cancel.png");
 
   public PImage grass() {
     return grass;
@@ -49,4 +51,13 @@ public class ImageStorage {
   public PImage reload() {
     return reload;
   }
+
+  public PImage ok(){
+    return ok;
+  }
+  
+  public PImage cancel(){
+    return cancel;
+  }
+
 }
