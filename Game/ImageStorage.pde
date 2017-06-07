@@ -9,6 +9,7 @@ public class ImageStorage {
   final PImage attack = loadImage("attack.png");
   final PImage reload = loadImage("reload.png");
   final PImage range = loadImage("range.png");
+  final PImage speed = loadImage("speed.png");
   final PImage ok = loadImage("ok.png");
   final PImage cancel = loadImage("cancel.png");
 
@@ -50,6 +51,10 @@ public class ImageStorage {
 
   public PImage reload() {
     return reload;
+  }
+
+  public PImage speed(){
+    return speed;
   }
 
   public PImage ok(){

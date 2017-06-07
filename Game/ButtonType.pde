@@ -5,6 +5,7 @@ enum ButtonType {
   ATTACK,
   RANGE,
   RELOAD,
+  SPEED,
   OK,
   CANCEL
 }

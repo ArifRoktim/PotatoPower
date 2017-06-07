@@ -10,7 +10,7 @@ class Tower implements Collideable {
   float _atk;
   boolean showRange;
   ImageStorage img;
-  int atkUpgradeCost, rangeUpgradeCost, reloadUpgradeCost;
+  int atkUpgradeCost, rangeUpgradeCost, reloadUpgradeCost, speedUpgradeCost;
   final int dim = 40;
   boolean active;
 
@@ -20,14 +20,14 @@ class Tower implements Collideable {
     _yPos = y;
     _width = _height = 40;
     _reloadTime = 1;
-    _speed = 0.2;
+    _speed = 0.1;
     _enemies = new LinkedList<Enemy>();
     _angle = 0;
     _atk = 5;
     img = nimg;
     showRange = false;
     active = false;
-    atkUpgradeCost = rangeUpgradeCost = reloadUpgradeCost = 10;
+    atkUpgradeCost = rangeUpgradeCost = reloadUpgradeCost = speedUpgradeCost = 10; 
   }
 
   public void drawObj() {
@@ -142,6 +142,11 @@ class Tower implements Collideable {
       reloadUpgradeCost += 10;
     }
   }
+  
+  void increaseSpeed(){
+    _speed += 0.5;
+    speedUpgradeCost += 10;
+  }
 
   int getAtkCost() {
     return atkUpgradeCost;
@@ -153,6 +158,10 @@ class Tower implements Collideable {
 
   int getReloadCost() {
     return reloadUpgradeCost;
+  }
+  
+  int getSpeedCost(){
+    return speedUpgradeCost;
   }
 
   public float getX(){

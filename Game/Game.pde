@@ -54,6 +54,7 @@ void setup() {
   atkBtn = new Button(0, 0, ButtonType.ATTACK, null, _img);
   reloadBtn = new Button(0, 0, ButtonType.RELOAD, null, _img);
   rangeBtn = new Button(0, 0, ButtonType.RANGE, null, _img);
+  speedBtn = new Button(0, 0, ButtonType.SPEED, null, _img);
   confirmBtn = new Button(0, 0, ButtonType.OK, null, _img);
   cancelBtn = new Button(0, 0, ButtonType.CANCEL, null, _img);
   showUpgrades = false;
@@ -175,6 +176,7 @@ void render() {
     atkBtn.drawObj();
     reloadBtn.drawObj();
     rangeBtn.drawObj();
+    speedBtn.drawObj();
   }
   if (confirmTower){
     confirmBtn.drawObj();
@@ -227,15 +229,15 @@ void mouseClicked() {
   else if (showUpgrades) {
     if (atkBtn.hovering()) {
       atkBtn.action();
-      println("I done an upgrade!");
       return;
     } else if (reloadBtn.hovering()) {
       reloadBtn.action();
-      println("I done an upgrade!");
       return;
     } else if (rangeBtn.hovering()) {
       rangeBtn.action();
-      println("I done an upgrade!");
+      return;
+    } else if (speedBtn.hovering()) {
+      speedBtn.action();
       return;
     } else {
       showUpgrades = false;
@@ -278,6 +280,7 @@ void mouseClicked() {
     showUpgrades = true;
     atkBtn.setTarget(atMouse.getTower());
     rangeBtn.setTarget(atMouse.getTower());
+    speedBtn.setTarget(atMouse.getTower());
     reloadBtn.setTarget(atMouse.getTower());
   }
 }

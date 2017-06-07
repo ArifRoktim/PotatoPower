@@ -26,14 +26,18 @@ class Button implements Drawable {
     switch (_type) {
       case ATTACK:
         x = tx - 45;
-        y = ty - 40;
+        y = ty - 45;
         break;
       case RANGE:
         x = tx + 5;
-        y = ty - 40;
+        y = ty - 45;
         break;
       case RELOAD:
-        x = tx - 20;
+        x = tx - 45;
+        y = ty + 5;
+        break;
+      case SPEED:
+        x = tx + 5;
         y = ty + 5;
         break;
       case OK:
@@ -83,6 +87,11 @@ class Button implements Drawable {
         textSize(9);
         text(getTarget().reloadUpgradeCost,x+20,y+40);
         break;
+      case SPEED:
+        image(img.speed(), x, y);
+        textSize(9);
+        text(getTarget().speedUpgradeCost,x+20,y+40);
+        break;
       case OK:
         image(img.ok(), x, y);
         break;
@@ -123,6 +132,12 @@ class Button implements Drawable {
         if (money >= targetTower.getReloadCost()) {
           money -= targetTower.getReloadCost();
           targetTower.increaseReload();
+        }
+        break;
+      case SPEED:
+        if (money >= targetTower.getSpeedCost()) {
+          money -= targetTower.getSpeedCost();
+          targetTower.increaseSpeed();
         }
         break;
       case OK:
