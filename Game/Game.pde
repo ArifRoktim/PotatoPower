@@ -15,12 +15,13 @@ List<Tower> _towers;
 QuadTree _qTree;
 Deque<Enemy> _enemyQueue;
 GameState status;
-int lives, money;
+int lives, money,kills;
 boolean running;
 PImage menu;
 PImage loss;
 Button playBtn, atkBtn, reloadBtn, rangeBtn, speedBtn;
 Button confirmBtn, cancelBtn;
+int tutorialSlide;
 boolean showUpgrades, confirmTower;
 
 void setup() {
@@ -30,6 +31,7 @@ void setup() {
   loss = loadImage("loser.jpg");
   image(menu,0,0,width,height);
   titleScreen();
+  tutorialSlide = 0;
   _qTree = new QuadTree( 0, new Rectangle( 0, 0, width, height) );
   _img = new ImageStorage();
   _map = new Map(_img);
@@ -38,6 +40,7 @@ void setup() {
   _projectiles = new LinkedList();
   _towers = new LinkedList();
   lives = 30;
+  kills = 0;
   money = 100;
   _enemyQueue = new ArrayDeque<Enemy>();
   for (int i = 0; i < 50; i++)
@@ -61,7 +64,7 @@ void draw() {
   // Add all Collideables to the quadtree
   popQuadTree();
 
-  if (status == GameState.TITLE){
+  if (status == GameState.TITLE || status == GameState.TUTORIAL){
   }
   else if (status == GameState.GAMEPLAY || status == GameState.WAITING ) {
     if( status == GameState.GAMEPLAY )
@@ -100,6 +103,7 @@ void draw() {
           if( ! _enemies.get(i).isAlive() ){
             _enemies.remove(i);
             money += 5;
+            kills++;
           }
         }
       }
@@ -187,11 +191,28 @@ void popQuadTree() {
 
 }
 
+void tutorial() {
+  switch (tutorialSlide) {
+    case 0:
+    _map.drawObj();
+    break;
+  }
+}
+
 void mouseClicked() {
   int x = mouseX / 40;
   int y = mouseY / 40;
   Tile atMouse = _map.getTile(x, y);
-  if (playBtn.hovering()) {
+  if (status == GameState.TITLE) {
+    status = GameState.WAITING;
+    tutorial();
+  } else if (status == GameState.TUTORIAL) {
+    tutorialSlide++;
+    if (tutorialSlide > 4)
+      status = GameState.WAITING;
+    else
+      tutorial();
+  }else if (playBtn.hovering()) {
     playBtn.action();
   }
   // shows the upgrade menu for towers
@@ -255,7 +276,7 @@ void mouseClicked() {
 
 void keyPressed() {
   if (key == 's' && status== GameState.TITLE) {
-    status = GameState.WAITING;
+    status = GameState.TUTORIAL;
   }
   else if (key == ' ') {
     if (running) {
@@ -271,13 +292,13 @@ void keyPressed() {
 void titleScreen() {
   textSize(80);
   textAlign(CENTER);
-  text("potatoPower",300,100);
+  text("PotatoPower",300,100);
   textSize(40);
   textAlign(RIGHT);
   text("the official game",400,200);
   textSize(20);
   textAlign(CENTER);
-  text("Press s to start the game",400,300);
+  text("Click to start the game",400,300);
   keyPressed();
 }
 
@@ -286,4 +307,6 @@ void endScreen() {
   textSize(40);
   textAlign(RIGHT);
   text("YOU LOSE",400,200);
+  textSize(20);
+  text("You killed " + kills + " enemies.",415,465); 
 }
