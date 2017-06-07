@@ -22,23 +22,47 @@ public class Map implements Drawable {
 
   // Maps: 
   void mapOne() {
-    placePath(14, 7);
-    placePath(13, 7);
-    placePath(12, 7);
-    placePath(11, 7);
-    placePath(10, 7);
-    placePath(9, 7);
-    placePath(8, 7);
-    placePath(7, 7);
-    placePath(7, 8);
-    placePath(7, 9);
-    placePath(7, 10);
-    placePath(7, 11);
-    placePath(7, 12);
-    placePath(7, 13);
-    placePath(7, 14);
-    _start = _map[7][14];
-    setValues();
+    placePath(0, 3, 0);
+    placePath(1, 3, 1);
+    placePath(2, 3, 2);
+    placePath(2, 4, 3);
+    placePath(2, 5, 4);
+    placePath(2, 6, 5);
+    placePath(2, 7, 6);
+    placePath(2, 8, 7);
+    placePath(2, 9, 8);
+    placePath(3, 9, 9);
+    placePath(4, 9, 10);
+    placePath(5, 9, 11);
+    placePath(6, 9, 12);
+    placePath(6, 8, 13);
+    placePath(6, 7, 14);
+    placePath(6, 6, 15);
+    placePath(7, 6, 16);
+    placePath(8, 6, 17);
+    placePath(8, 7, 18);
+    placePath(8, 8, 19);
+    placePath(8, 9, 20);
+    placePath(8, 10, 21);
+    placePath(8, 11, 22);
+    placePath(8, 12, 23);
+    placePath(9, 12, 24);
+    placePath(10, 12, 25);
+    placePath(11, 12, 26);
+    placePath(12, 12, 27);
+    placePath(12, 11, 28);
+    placePath(12, 10, 29);
+    placePath(12, 9, 30);
+    placePath(12, 8, 31);
+    placePath(12, 7, 32);
+    placePath(12, 6, 33);
+    placePath(12, 5, 34);
+    placePath(12, 5, 38);
+    placePath(13, 5, 39);
+    placePath(14, 5, 40);
+
+    _start = getTile(0, 3);
+    _end = getTile(14, 1);
   }
 
   private void setValues() {
@@ -98,6 +122,12 @@ public class Map implements Drawable {
     _map[y][x].setType(TileType.PATH);
     _map[y][x].setValue(0);
     _end = _map[y][x];
+  }
+
+  // places path on the designated tile (row number, column number)
+  void placePath(int x, int y, int value) {
+    placePath( x, y );
+    _map[y][x]._value = value;
   }
 
   // places grass on the designated tile (row number, column number)
