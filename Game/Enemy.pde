@@ -13,7 +13,7 @@ class Enemy implements Collideable {
   Map _map;
 
   Enemy( Map theMap, ImageStorage nimg) {
-    _hp = 50;
+    _hp = 30;
     _rad = 18;
     img = nimg;
     // the initial _xPos and _yPos are dependant on the Map

@@ -45,7 +45,7 @@ void setup() {
   kills = 0;
   money = 100;
   _enemyQueue = new ArrayDeque<Enemy>();
-  for (int i = 0; i < 50; i++)
+  for (int i = 0; i < 70; i++)
     _enemyQueue.add(new Enemy(_map, _img));
   textSize(24);
   fill(255, 0, 0);
@@ -142,7 +142,7 @@ void draw() {
     if (lives <= 0) {
       status = GameState.END;
     }
-    else if (_enemyQueue.isEmpty()) {
+    else if (_enemyQueue.isEmpty() && _enemies.isEmpty() ) {
       status = GameState.WIN;
     }
   }
@@ -187,7 +187,7 @@ void render() {
 // Spawn enemy at the starting coordinates
 void spawn() {
   // Randomly spawn enemy every .5 seconds
-  if (Math.random() > 0.5 && frameCount % (30) == 0 && !_enemyQueue.isEmpty()) {
+  if (Math.random() > 0.65 && frameCount % (30) == 0 && !_enemyQueue.isEmpty()) {
     //System.out.println( frameCount );
     _enemies.add( _enemyQueue.remove() );
   }
@@ -222,9 +222,9 @@ void mouseClicked() {
     else
       tutorial();
   }else if (playBtn.hovering()) {
+  // shows the upgrade menu for towers
     playBtn.action();
   }
-  // shows the upgrade menu for towers
   else if (showUpgrades) {
     if (atkBtn.hovering()) {
       atkBtn.action();

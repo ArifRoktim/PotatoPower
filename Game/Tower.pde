@@ -127,7 +127,7 @@ class Tower implements Collideable {
   }
 
   void increaseAttack() {
-    _atk += 2;
+    _atk += .5;
     atkUpgradeCost += 10;
   }
 
