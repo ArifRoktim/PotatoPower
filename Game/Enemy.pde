@@ -45,6 +45,10 @@ class Enemy implements Collideable {
 
     if (dist(_xPos*40, _yPos*40, _target.getX()*40 + 20, _target.getY()*40 + 20) < 5) { //if you have reached target
       //print("reached target");
+      // "Round" off my location to be that off target
+      // Do this so that enemy doesn't drift off of the path
+      _xPos = _target.getX() + .5;
+      _yPos = _target.getY() + .5;
 
       _dx = _dy = 0;
       Tile up = _map.getUp(_target);
