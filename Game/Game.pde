@@ -109,6 +109,7 @@ void draw() {
 
     }
 
+    // remove projectiles that go out of bounds
     for (int i = _projectiles.size() - 1; i > -1; i--) {
       if (_projectiles.get(i).outOfBounds()){
         Projectile p = _projectiles.get(i);
@@ -132,6 +133,7 @@ void draw() {
       }
     }
 
+    //update screen
     render();
     if (lives <= 0) {
       status = GameState.END;
@@ -193,7 +195,9 @@ void mouseClicked() {
   Tile atMouse = _map.getTile(x, y);
   if (playBtn.hovering()) {
     playBtn.action();
-  } else if (showUpgrades) {
+  }
+  // shows the upgrade menu for towers
+  else if (showUpgrades) {
     if (atkBtn.hovering()) {
       atkBtn.action();
       println("I done an upgrade!");
@@ -211,6 +215,7 @@ void mouseClicked() {
       atkBtn.getTarget().setShowRange(false);
     }
   } 
+  // shows confirmation menu for buying towers
   else if (confirmTower){
     if (confirmBtn.hovering()){
       confirmBtn.action();
@@ -221,6 +226,7 @@ void mouseClicked() {
     }
     confirmTower = false;
   }
+  // places a tower and asks user to confirm/cancel tower
   else if ( atMouse.towerPlaceable() ) {
     if( money >= 20 ){
       Tower newTower = new Tower( x + .5, y + .5, _img );
@@ -233,11 +239,12 @@ void mouseClicked() {
       confirmBtn.setTarget(atMouse.getTower());
       cancelBtn.setTarget(atMouse.getTower());
 
-      //money -= 20;
     } else {
       //print message about insufficient funds
     }
-  } else if ( _map.getTile(x, y).getType() == TileType.GRASS) {
+  }
+  // close menu when you click outside of the menu
+  else if ( _map.getTile(x, y).getType() == TileType.GRASS) {
     if (showUpgrades) {
       atkBtn.getTarget().setShowRange(false);
     }
@@ -245,9 +252,6 @@ void mouseClicked() {
     atkBtn.setTarget(atMouse.getTower());
     rangeBtn.setTarget(atMouse.getTower());
     reloadBtn.setTarget(atMouse.getTower());
-  } else if (showUpgrades) {
-    showUpgrades = false;
-    atkBtn.getTarget().setShowRange(false);
   }
 }
 

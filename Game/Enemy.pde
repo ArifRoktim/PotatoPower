@@ -14,7 +14,7 @@ class Enemy implements Collideable {
 
   Enemy( Map theMap, ImageStorage nimg) {
     _hp = 30;
-    _rad = 18; // TODO: replace 20 with half the width/height of a Tile
+    _rad = 18;
     img = nimg;
     // the initial _xPos and _yPos are dependant on the Map
     _xPos = theMap.getStart().getX() + 0.5;
@@ -109,7 +109,6 @@ class Enemy implements Collideable {
 
   }
 
-  //TODO: fix bugged method
   public boolean isColliding( Collideable other ){
     float x1 = _xPos*40;
     float y1 = _yPos*40;
@@ -118,14 +117,6 @@ class Enemy implements Collideable {
     float r1 = _rad;
     float r2 = other.getWidth()/2;
     return dist(x1, y1, x2, y2) <= r1 + r2;
-  }
-
-  public void collide(){
-
-  }
-
-  public void collide(Collideable other) {
-
   }
 
   public ImageStorage getImg() {

@@ -110,15 +110,6 @@ class Tower implements Collideable {
     //if (mousePressed)
     //println(possible + " " + _enemies);
 
-    /*
-    // Run actual collision detection algorithm
-    for ( Collideable i : possible ) {
-    if( isColliding( i ) ){
-    System.out.println( i );
-    }
-    }
-     */
-
   }
 
   public ImageStorage getImg() {
@@ -162,14 +153,6 @@ class Tower implements Collideable {
 
   int getReloadCost() {
     return reloadUpgradeCost;
-  }
-
-  public void collide( Collideable other){
-
-  }
-
-  public void collide(){ //needed?
-
   }
 
   public float getX(){

@@ -10,14 +10,6 @@ class Projectile implements Collideable {
   Projectile( float x, float y, double _speed, float dmg, float _angle, ImageStorage nimg) {
     _xPos = x;
     _yPos = y;
-    if (_angle > 0 && _angle < PI/2) {
-    } else if (_angle > PI/2 && _angle < PI) {
-
-    } else if (_angle > PI && _angle < 3*PI/2) {
-
-    } else if (_angle > 0 && _angle < PI/2) {
-
-    }
     _dx = cos(_angle) * _speed;
     _dy = sin(_angle) * _speed;
     img = nimg;
@@ -25,8 +17,6 @@ class Projectile implements Collideable {
   }
 
   public void drawObj(){
-    // temporary image
-
     //diagnostics:
     //System.out.println("xpos = " + _xPos + " ypos = " + _yPos);
 
@@ -40,16 +30,9 @@ class Projectile implements Collideable {
     _yPos += _dy;
   }
 
+  //unused
   public boolean isColliding( Collideable other ){
     return false;
-  }
-
-  public void collide(){
-
-  }
-
-  public void collide(Collideable other) {
-
   }
 
   public ImageStorage getImg() {
