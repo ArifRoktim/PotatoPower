@@ -62,7 +62,7 @@ public class Map implements Drawable {
     placePath(14, 5, 40);
 
     _start = getTile(0, 3);
-    _end = getTile(14, 1);
+    _end = getTile(14, 5);
   }
 
   private void setValues() {
